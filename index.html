@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Safal Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- ANIMATED BACKGROUND --- */
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Books Animation */
+        .book-icon {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 3rem;
+            animation: floatUp 10s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <div id="bg-animation">
+    </div>
+
+    <div id="loginSection" class="w-full max-w-sm glass-card rounded-3xl p-8 relative z-10 transition-all duration-500">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-lg mb-4">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-800">Student Login</h1>
+            <p class="text-sm text-slate-500">Welcome to Safal Library</p>
+        </div>
+
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Registration No</label>
+                <div class="relative">
+                    <i class="fa-solid fa-id-card absolute left-4 top-3.5 text-slate-400"></i>
+                    <input type="text" id="loginRegNo" placeholder="e.g. SL-101" class="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-blue-500 transition-all uppercase" required>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Password</label>
+                <div class="relative">
+                    <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i>
+                    <input type="password" id="loginPass" placeholder="••••••" class="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-blue-500 transition-all" required>
+                </div>
+            </div>
+
+            <p id="errorMsg" class="text-red-500 text-xs text-center font-bold hidden bg-red-100 p-2 rounded-lg">
+                <i class="fa-solid fa-circle-exclamation mr-1"></i> Invalid Credentials or Network Error
+            </p>
+
+            <button type="submit" id="loginBtn" class="w-full bg-slate-800 hover:bg-black text-white font-bold py-3 rounded-xl shadow-lg transform active:scale-95 transition-all">
+                Enter Library
+            </button>
+        </form>
+    </div>
+
+    <div id="dashboardSection" class="w-full max-w-md hidden relative z-10">
+        
+        <div class="glass-card rounded-3xl overflow-hidden">
+            <div class="h-32 bg-gradient-to-r from-blue-600 to-purple-600 relative">
+                <button onclick="logout()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md transition">
+                    <i class="fa-solid fa-power-off mr-1"></i> Logout
+                </button>
+            </div>
+
+            <div class="px-6 pb-6 relative">
+                <div class="relative -mt-16 mb-4 flex justify-between items-end">
+                    <div class="w-28 h-28 rounded-2xl bg-white p-1 shadow-xl">
+                        <img id="profileImg" src="" class="w-full h-full object-cover rounded-xl bg-slate-100">
+                    </div>
+                    <div class="mb-1 text-right">
+                        <span id="statusBadge" class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">
+                            Active Student
+                        </span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h2 id="dispName" class="text-2xl font-bold text-slate-800 leading-tight">Student Name</h2>
+                    <p class="text-slate-500 font-medium">Reg No: <span id="dispRegNo" class="text-blue-600 font-bold">---</span></p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="bg-white/60 p-3 rounded-xl border border-white/50">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Time Slot</p>
+                        <p id="dispTime" class="text-slate-700 font-semibold text-sm">-- : --</p>
+                    </div>
+                    <div class="bg-white/60 p-3 rounded-xl border border-white/50">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Phone</p>
+                        <p id="dispPhone" class="text-slate-700 font-semibold text-sm">---</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 border-l-4 border-blue-500 shadow-sm relative overflow-hidden">
+                    <i class="fa-solid fa-file-invoice-dollar absolute -right-2 -bottom-2 text-6xl text-slate-50 opacity-10"></i>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-slate-400 font-bold uppercase">Next Fee Due</p>
+                            <h3 id="dispFeeDate" class="text-lg font-bold text-slate-800">---</h3>
+                        </div>
+                        <div id="daysLeftBadge" class="text-center">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-3">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Full Details</h3>
+                    
+                    <div class="flex justify-between text-sm py-1 border-b border-dashed border-slate-200">
+                        <span class="text-slate-500">Father's Name</span>
+                        <span id="dispFather" class="font-medium text-slate-700">---</span>
+                    </div>
+                    <div class="flex justify-between text-sm py-1 border-b border-dashed border-slate-200">
+                        <span class="text-slate-500">Mother's Name</span>
+                        <span id="dispMother" class="font-medium text-slate-700">---</span>
+                    </div>
+                    <div class="flex justify-between text-sm py-1 border-b border-dashed border-slate-200">
+                        <span class="text-slate-500">Aadhar No</span>
+                        <span id="dispAadhar" class="font-medium text-slate-700">---</span>
+                    </div>
+                    <div class="flex flex-col text-sm py-1">
+                        <span class="text-slate-500 mb-1">Address</span>
+                        <span id="dispAddress" class="font-medium text-slate-700 bg-white/50 p-2 rounded-lg text-xs">---</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <p class="text-center text-white/60 text-xs mt-4 font-medium">Safal Library Digital Portal</p>
+    </div>
+
+    <script type="module">
+        // --- 1. IMPORT FIREBASE ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // --- 2. CONFIGURATION (NEW KEY) ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEU3K8FzwfZOsdTHSOTBzPoQ7wWc1jIhk",
+            authDomain: "safallibrary02-4e47b.firebaseapp.com",
+            projectId: "safallibrary02-4e47b",
+            storageBucket: "safallibrary02-4e47b.firebasestorage.app",
+            messagingSenderId: "718136047267",
+            appId: "1:718136047267:web:1ff63497bcb84d05323116"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- 3. ANIMATION ---
+        const icons = ['fa-book', 'fa-book-open', 'fa-graduation-cap', 'fa-pen-nib', 'fa-laptop-code'];
+        const bgContainer = document.getElementById('bg-animation');
+        
+        for(let i=0; i<15; i++) {
+            const el = document.createElement('i');
+            const iconClass = icons[Math.floor(Math.random() * icons.length)];
+            el.className = `fa-solid ${iconClass} book-icon`;
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            el.style.animationDelay = (Math.random() * 5) + 's';
+            el.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            bgContainer.appendChild(el);
+        }
+
+        // --- 4. LOGIN LOGIC ---
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('loginBtn');
+            const regInput = document.getElementById('loginRegNo').value.trim().toUpperCase(); // Ensure uppercase matching
+            const passInput = document.getElementById('loginPass').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            // UI Feedback
+            btn.innerText = "Checking Database...";
+            btn.classList.add("opacity-75");
+
+            try {
+                // QUERY FIREBASE
+                const q = query(collection(db, "students"), where("regNo", "==", regInput), where("password", "==", passInput));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    // SUCCESS
+                    const studentData = querySnapshot.docs[0].data();
+                    errorMsg.classList.add('hidden');
+                    loadDashboard(studentData);
+                } else {
+                    // FAIL
+                    errorMsg.classList.remove('hidden');
+                    document.getElementById('loginSection').classList.add('animate-pulse');
+                    setTimeout(() => document.getElementById('loginSection').classList.remove('animate-pulse'), 500);
+                    btn.innerText = "Enter Library";
+                    btn.classList.remove("opacity-75");
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                errorMsg.classList.remove('hidden');
+                errorMsg.innerText = "Connection Error. Check Internet.";
+                btn.innerText = "Enter Library";
+                btn.classList.remove("opacity-75");
+            }
+        });
+
+        // --- 5. RENDER DASHBOARD ---
+        function loadDashboard(data) {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('dashboardSection').classList.remove('hidden');
+
+            // Populate Text Fields
+            document.getElementById('dispName').innerText = data.name;
+            document.getElementById('dispRegNo').innerText = "#" + (data.regNo || '---');
+            document.getElementById('dispPhone').innerText = data.mobile;
+            document.getElementById('dispFather').innerText = data.father || '-';
+            document.getElementById('dispMother').innerText = data.mother || '-';
+            document.getElementById('dispAadhar').innerText = data.aadhar || '-';
+            document.getElementById('dispAddress').innerText = data.address || '-';
+            
+            // Format Time
+            const start = formatTime(data.shiftStart);
+            const end = formatTime(data.shiftEnd);
+            document.getElementById('dispTime').innerText = `${start} - ${end}`;
+
+            // Image Handler
+            if(data.image) {
+                document.getElementById('profileImg').src = data.image;
+            } else {
+                document.getElementById('profileImg').src = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+            }
+
+            // Fee Calculation Logic
+            if (data.feeDueDate) {
+                const due = new Date(data.feeDueDate);
+                const today = new Date();
+                const diffTime = due - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                
+                document.getElementById('dispFeeDate').innerText = new Date(data.feeDueDate).toLocaleDateString('en-GB');
+
+                const badge = document.getElementById('daysLeftBadge');
+                if (diffDays < 0) {
+                    badge.innerHTML = `<span class="text-red-500 font-bold text-xs block">OVERDUE</span><span class="text-red-600 font-bold text-xl">${Math.abs(diffDays)} Days</span>`;
+                } else {
+                    badge.innerHTML = `<span class="text-green-600 font-bold text-xs block">Due in</span><span class="text-slate-800 font-bold text-xl">${diffDays} Days</span>`;
+                }
+            } else {
+                document.getElementById('dispFeeDate').innerText = "N/A";
+            }
+        }
+
+        function formatTime(timeStr) {
+            if(!timeStr) return "--";
+            const [hour, min] = timeStr.split(':');
+            const h = parseInt(hour);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            return `${h12}:${min} ${ampm}`;
+        }
+
+        window.logout = function() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
