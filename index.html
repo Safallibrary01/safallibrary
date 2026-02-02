@@ -6,175 +6,131 @@
     <title>My Safal Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
-        /* --- ANIMATED BACKGROUND --- */
-        body {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            min-height: 100vh;
-            font-family: 'Segoe UI', sans-serif;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Floating Books Animation */
-        .book-icon {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 3rem;
-            animation: floatUp 10s linear infinite;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        }
-
+        body { background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); background-size: 400% 400%; animation: gradientBG 15s ease infinite; min-height: 100vh; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; position: relative; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .book-icon { position: absolute; color: rgba(255, 255, 255, 0.15); font-size: 3rem; animation: floatUp 10s linear infinite; pointer-events: none; }
+        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.5; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
         .hidden { display: none; }
+        .rules-modal { animation: popIn 0.2s ease-out; }
+        @keyframes popIn { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body class="flex items-center justify-center p-4">
 
-    <div id="bg-animation">
-    </div>
+    <div id="bg-animation"></div>
 
-    <div id="loginSection" class="w-full max-w-sm glass-card rounded-3xl p-8 relative z-10 transition-all duration-500">
+    <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all">
         <div class="text-center mb-8">
-            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto shadow-lg mb-4">
-                <i class="fa-solid fa-book-open"></i>
-            </div>
+            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 shadow-lg"><i class="fa-solid fa-book-open"></i></div>
             <h1 class="text-2xl font-bold text-slate-800">Student Login</h1>
             <p class="text-sm text-slate-500">Welcome to Safal Library</p>
         </div>
-
         <form id="loginForm" class="space-y-4">
-            <div>
-                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Registration No</label>
-                <div class="relative">
-                    <i class="fa-solid fa-id-card absolute left-4 top-3.5 text-slate-400"></i>
-                    <input type="text" id="loginRegNo" placeholder="e.g. SL-101" class="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-blue-500 transition-all uppercase" required>
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-xs font-bold text-slate-500 uppercase mb-1 ml-1">Password</label>
-                <div class="relative">
-                    <i class="fa-solid fa-lock absolute left-4 top-3.5 text-slate-400"></i>
-                    <input type="password" id="loginPass" placeholder="••••••" class="w-full pl-10 pr-4 py-3 rounded-xl bg-white border border-slate-200 focus:outline-none focus:border-blue-500 transition-all" required>
-                </div>
-            </div>
-
-            <p id="errorMsg" class="text-red-500 text-xs text-center font-bold hidden bg-red-100 p-2 rounded-lg">
-                <i class="fa-solid fa-circle-exclamation mr-1"></i> Invalid Credentials or Network Error
-            </p>
-
-            <button type="submit" id="loginBtn" class="w-full bg-slate-800 hover:bg-black text-white font-bold py-3 rounded-xl shadow-lg transform active:scale-95 transition-all">
-                Enter Library
-            </button>
+            <input type="text" id="loginRegNo" placeholder="REGISTRATION NO" class="w-full p-4 rounded-xl border uppercase font-bold outline-none focus:border-blue-500" required>
+            <input type="password" id="loginPass" placeholder="PASSWORD" class="w-full p-4 rounded-xl border outline-none focus:border-blue-500" required>
+            <p id="errorMsg" class="text-red-500 text-xs text-center font-bold hidden bg-red-100 p-2 rounded">Invalid Credentials</p>
+            <button type="submit" id="loginBtn" class="w-full bg-slate-800 text-white font-bold py-4 rounded-xl shadow-lg active:scale-95 transition">Enter Portal</button>
         </form>
+        
+        <p class="text-center mt-6 text-[10px] text-slate-500">
+            By logging in, you agree to the <br>
+            <button onclick="openRules()" class="text-blue-600 font-bold hover:underline mt-1">Terms & Conditions</button>
+        </p>
     </div>
 
-    <div id="dashboardSection" class="w-full max-w-md hidden relative z-10">
-        
-        <div class="glass-card rounded-3xl overflow-hidden">
-            <div class="h-32 bg-gradient-to-r from-blue-600 to-purple-600 relative">
-                <button onclick="logout()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md transition">
-                    <i class="fa-solid fa-power-off mr-1"></i> Logout
-                </button>
+    <div id="dashboardSection" class="w-full max-w-md hidden z-10">
+        <div class="glass-card overflow-hidden">
+            <div class="h-24 bg-gradient-to-r from-blue-600 to-indigo-600 flex justify-end p-4">
+                <button onclick="location.reload()" class="bg-white/20 text-white px-3 py-1 rounded-full text-[10px] font-bold h-fit">LOGOUT</button>
             </div>
-
             <div class="px-6 pb-6 relative">
-                <div class="relative -mt-16 mb-4 flex justify-between items-end">
-                    <div class="w-28 h-28 rounded-2xl bg-white p-1 shadow-xl">
-                        <img id="profileImg" src="" class="w-full h-full object-cover rounded-xl bg-slate-100">
-                    </div>
-                    <div class="mb-1 text-right">
-                        <span id="statusBadge" class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full border border-green-200">
-                            Active 
-                        </span>
-                    </div>
+                <div class="flex justify-between items-end -mt-10 mb-4">
+                    <img id="profileImg" src="" class="w-24 h-24 rounded-2xl border-4 border-white bg-slate-100 object-cover shadow-xl">
+                    <button onclick="startAttendanceScanner()" class="bg-green-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-lg shadow-green-200 active:scale-90 transition">
+                        <i class="fa-solid fa-qrcode mr-1"></i> SCAN ENTRY
+                    </button>
                 </div>
-
-                <div class="mb-6">
-                    <h2 id="dispName" class="text-2xl font-bold text-slate-800 leading-tight">Student Name</h2>
-                    <p class="text-slate-500 font-medium">Reg No: <span id="dispRegNo" class="text-blue-600 font-bold">---</span></p>
-                </div>
-
+                <div class="mb-6"><h2 id="dispName" class="text-2xl font-bold text-slate-800">Student Name</h2><p id="dispRegNo" class="text-blue-600 font-bold text-sm">#---</p></div>
                 <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div class="bg-white/60 p-3 rounded-xl border border-white/50">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">Time Slot</p>
-                        <p id="dispTime" class="text-slate-700 font-semibold text-sm">-- : --</p>
+                    <div class="bg-white p-3 rounded-xl border">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Time Slot</p>
+                        <p id="dispTime" class="text-slate-700 font-bold text-sm">-- : --</p>
                     </div>
-                    <div class="bg-white/60 p-3 rounded-xl border border-white/50">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">Phone</p>
-                        <p id="dispPhone" class="text-slate-700 font-semibold text-sm">---</p>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl p-4 border-l-4 border-blue-500 shadow-sm relative overflow-hidden">
-                    <i class="fa-solid fa-file-invoice-dollar absolute -right-2 -bottom-2 text-6xl text-slate-50 opacity-10"></i>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-xs text-slate-400 font-bold uppercase">Next Fee Due</p>
-                            <h3 id="dispFeeDate" class="text-lg font-bold text-slate-800">---</h3>
-                        </div>
-                        <div id="daysLeftBadge" class="text-center">
-                        </div>
+                    <div class="bg-red-50 p-3 rounded-xl border border-red-100">
+                        <p class="text-[9px] text-red-400 font-bold uppercase">Next Fee Due</p>
+                        <p id="dispFeeDate" class="text-red-600 font-bold text-sm">--/--/--</p>
                     </div>
                 </div>
-
-                <div class="mt-6 space-y-3">
-                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2">Full Details</h3>
-                    
-                    <div class="flex justify-between text-sm py-1 border-b border-dashed border-slate-200">
-                        <span class="text-slate-500">Father's Name</span>
-                        <span id="dispFather" class="font-medium text-slate-700">---</span>
-                    </div>
-                    <div class="flex justify-between text-sm py-1 border-b border-dashed border-slate-200">
-                        <span class="text-slate-500">Mother's Name</span>
-                        <span id="dispMother" class="font-medium text-slate-700">---</span>
-                    </div>
-                    <div class="flex justify-between text-sm py-1 border-b border-dashed border-slate-200">
-                        <span class="text-slate-500">Aadhar No</span>
-                        <span id="dispAadhar" class="font-medium text-slate-700">---</span>
-                    </div>
-                    <div class="flex flex-col text-sm py-1">
-                        <span class="text-slate-500 mb-1">Address</span>
-                        <span id="dispAddress" class="font-medium text-slate-700 bg-white/50 p-2 rounded-lg text-xs">---</span>
-                    </div>
+                <div class="space-y-2 text-xs text-slate-500 border-t pt-4">
+                    <div class="flex justify-between"><span>Father's Name</span><b id="dispFather" class="text-slate-700">--</b></div>
+                    <div class="flex justify-between"><span>Aadhar No</span><b id="dispAadhar" class="text-slate-700">--</b></div>
+                    <div class="flex flex-col pt-2"><span>Address</span><p id="dispAddress" class="text-slate-700 italic mt-1 bg-slate-50 p-2 rounded">--</p></div>
                 </div>
-
             </div>
         </div>
-        
-        <p class="text-center text-white/60 text-xs mt-4 font-medium">Safal Library Digital Portal</p>
+        <p class="text-center text-white/80 text-xs mt-4 font-medium cursor-pointer hover:underline" onclick="openRules()">View Terms & Conditions</p>
+    </div>
+
+    <div id="rulesModal" class="fixed inset-0 bg-black/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeRules()">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative rules-modal overflow-hidden max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+            
+            <div class="bg-blue-600 p-4 text-center relative shrink-0">
+                <button onclick="closeRules()" class="absolute top-4 right-4 text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="text-white font-bold text-lg uppercase tracking-wider">Safal Library Rules</h2>
+                <p class="text-blue-200 text-sm font-bold">सफल पुस्तकालय के नियम</p>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-700">
+                
+                <div>
+                    <h3 class="font-bold text-blue-800 flex items-center gap-2">
+                        <i class="fa-solid fa-volume-xmark"></i> 1. SILENCE / शांति
+                    </h3>
+                    <p class="mt-1 text-slate-600">Maintain strict silence upon entering the library premises.</p>
+                    <p class="text-slate-800 font-medium">पुस्तकालय परिसर में प्रवेश करते ही पूर्ण शांति बनाए रखें।</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-blue-800 flex items-center gap-2">
+                        <i class="fa-solid fa-gavel"></i> 2. DISCIPLINE / अनुशासन
+                    </h3>
+                    <p class="mt-1 text-slate-600">Any violence or misbehavior will be reported directly to the Ballia Judiciary.</p>
+                    <p class="text-slate-800 font-medium">किसी भी प्रकार की हिंसा या दुर्व्यवहार की सूचना सीधे बलिया न्यायपालिका को दी जाएगी।</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-blue-800 flex items-center gap-2">
+                        <i class="fa-solid fa-money-bill-wave"></i> 3. FEE POLICY / शुल्क नीति
+                    </h3>
+                    <p class="mt-1 text-slate-600">Fees are non-refundable, but can be managed according to your needs.</p>
+                    <p class="text-slate-800 font-medium">जमा किया गया शुल्क वापस नहीं होगा, लेकिन इसे जरूरत अनुसार व्यवस्थित किया जा सकता है।</p>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-200 mt-4">
+                    <p class="text-xs text-slate-500 font-bold uppercase mb-1">For Queries / संपर्क करें</p>
+                    <p class="text-lg font-bold text-blue-600">9305506411, 9580983727</p>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="closeRules()" class="bg-slate-800 text-white px-6 py-2 rounded-full font-bold text-xs hover:bg-black transition">I Agree / सहमत हूँ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="scannerView" class="fixed inset-0 bg-black z-[100] hidden flex flex-col items-center justify-center p-6">
+        <div id="reader" class="w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl border-2 border-white"></div>
+        <p class="text-white mt-6 font-bold">Align QR Code within the frame</p>
+        <button onclick="stopAttendanceScanner()" class="mt-10 text-white bg-red-500 px-8 py-3 rounded-full font-bold">CANCEL</button>
     </div>
 
     <script type="module">
-        // --- 1. IMPORT FIREBASE ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getFirestore, collection, query, where, getDocs, addDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // --- 2. CONFIGURATION (NEW KEY) ---
         const firebaseConfig = {
             apiKey: "AIzaSyAEU3K8FzwfZOsdTHSOTBzPoQ7wWc1jIhk",
             authDomain: "safallibrary02-4e47b.firebaseapp.com",
@@ -186,120 +142,58 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        let studentData = null;
+        let scanner = null;
 
-        // --- 3. ANIMATION ---
-        const icons = ['fa-book', 'fa-book-open', 'fa-graduation-cap', 'fa-pen-nib', 'fa-laptop-code'];
-        const bgContainer = document.getElementById('bg-animation');
-        
-        for(let i=0; i<15; i++) {
-            const el = document.createElement('i');
-            const iconClass = icons[Math.floor(Math.random() * icons.length)];
-            el.className = `fa-solid ${iconClass} book-icon`;
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            el.style.animationDelay = (Math.random() * 5) + 's';
-            el.style.fontSize = (Math.random() * 2 + 1) + 'rem';
-            bgContainer.appendChild(el);
-        }
-
-        // --- 4. LOGIN LOGIC ---
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const btn = document.getElementById('loginBtn');
-            const regInput = document.getElementById('loginRegNo').value.trim().toUpperCase(); // Ensure uppercase matching
-            const passInput = document.getElementById('loginPass').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-
-            // UI Feedback
-            btn.innerText = "Checking Database...";
-            btn.classList.add("opacity-75");
-
-            try {
-                // QUERY FIREBASE
-                const q = query(collection(db, "students"), where("regNo", "==", regInput), where("password", "==", passInput));
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
-                    // SUCCESS
-                    const studentData = querySnapshot.docs[0].data();
-                    errorMsg.classList.add('hidden');
-                    loadDashboard(studentData);
-                } else {
-                    // FAIL
-                    errorMsg.classList.remove('hidden');
-                    document.getElementById('loginSection').classList.add('animate-pulse');
-                    setTimeout(() => document.getElementById('loginSection').classList.remove('animate-pulse'), 500);
-                    btn.innerText = "Enter Library";
-                    btn.classList.remove("opacity-75");
-                }
-            } catch (error) {
-                console.error("Login Error:", error);
-                errorMsg.classList.remove('hidden');
-                errorMsg.innerText = "Connection Error. Check Internet.";
-                btn.innerText = "Enter Library";
-                btn.classList.remove("opacity-75");
+        document.getElementById('loginForm').addEventListener('submit', async(e)=>{
+            e.preventDefault(); const btn=document.getElementById('loginBtn'); btn.innerText="Verifying...";
+            const r=document.getElementById('loginRegNo').value.trim().toUpperCase(); const p=document.getElementById('loginPass').value.trim();
+            const q=query(collection(db,"students"),where("regNo","==",r),where("password","==",p));
+            const snap=await getDocs(q);
+            if(!snap.empty){
+                studentData=snap.docs[0].data(); studentData.id=snap.docs[0].id;
+                renderDash(); document.getElementById('loginSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden');
+            } else { 
+                document.getElementById('errorMsg').classList.remove('hidden');
+                btn.innerText="Enter Portal";
             }
         });
 
-        // --- 5. RENDER DASHBOARD ---
-        function loadDashboard(data) {
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('dashboardSection').classList.remove('hidden');
+        function renderDash(){
+            document.getElementById('dispName').innerText=studentData.name; document.getElementById('dispRegNo').innerText="#"+studentData.regNo;
+            document.getElementById('dispFeeDate').innerText=studentData.feeDueDate; document.getElementById('dispTime').innerText=formatTime(studentData.shiftStart)+" - "+formatTime(studentData.shiftEnd);
+            document.getElementById('dispFather').innerText=studentData.father; document.getElementById('dispAadhar').innerText=studentData.aadhar;
+            document.getElementById('dispAddress').innerText=studentData.address; 
+            document.getElementById('profileImg').src=studentData.image||"https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+        }
 
-            // Populate Text Fields
-            document.getElementById('dispName').innerText = data.name;
-            document.getElementById('dispRegNo').innerText = "#" + (data.regNo || '---');
-            document.getElementById('dispPhone').innerText = data.mobile;
-            document.getElementById('dispFather').innerText = data.father || '-';
-            document.getElementById('dispMother').innerText = data.mother || '-';
-            document.getElementById('dispAadhar').innerText = data.aadhar || '-';
-            document.getElementById('dispAddress').innerText = data.address || '-';
-            
-            // Format Time
-            const start = formatTime(data.shiftStart);
-            const end = formatTime(data.shiftEnd);
-            document.getElementById('dispTime').innerText = `${start} - ${end}`;
+        // --- RULES MODAL LOGIC ---
+        window.openRules = () => document.getElementById('rulesModal').classList.remove('hidden');
+        window.closeRules = () => document.getElementById('rulesModal').classList.add('hidden');
 
-            // Image Handler
-            if(data.image) {
-                document.getElementById('profileImg').src = data.image;
-            } else {
-                document.getElementById('profileImg').src = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
-            }
-
-            // Fee Calculation Logic
-            if (data.feeDueDate) {
-                const due = new Date(data.feeDueDate);
-                const today = new Date();
-                const diffTime = due - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-                
-                document.getElementById('dispFeeDate').innerText = new Date(data.feeDueDate).toLocaleDateString('en-GB');
-
-                const badge = document.getElementById('daysLeftBadge');
-                if (diffDays < 0) {
-                    badge.innerHTML = `<span class="text-red-500 font-bold text-xs block">OVERDUE</span><span class="text-red-600 font-bold text-xl">${Math.abs(diffDays)} Days</span>`;
-                } else {
-                    badge.innerHTML = `<span class="text-green-600 font-bold text-xs block">Due in</span><span class="text-slate-800 font-bold text-xl">${diffDays} Days</span>`;
+        // --- SCANNER LOGIC ---
+        window.startAttendanceScanner = () => {
+            document.getElementById('scannerView').classList.remove('hidden');
+            scanner = new Html5Qrcode("reader");
+            scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, async (code) => {
+                if (code.startsWith("SAFAL_SEAT_")) {
+                    const seatNum = code.split("_")[2]; 
+                    await stopAttendanceScanner();
+                    await addDoc(collection(db, "attendance"), { studentId: studentData.id, name: studentData.name, regNo: studentData.regNo, seatNo: seatNum, timestamp: new Date() });
+                    await updateDoc(doc(db, "students", studentData.id), { seatNo: seatNum });
+                    alert(`✅ Attendance Marked at Seat ${seatNum}!`);
+                } else if(code === "SAFAL_LIB_ENTRY_2026") {
+                    await stopAttendanceScanner();
+                    await addDoc(collection(db, "attendance"), { studentId: studentData.id, name: studentData.name, regNo: studentData.regNo, timestamp: new Date() });
+                    alert("✅ Attendance Marked Successfully!");
                 }
-            } else {
-                document.getElementById('dispFeeDate').innerText = "N/A";
-            }
+            });
         }
+        window.stopAttendanceScanner = async () => { if(scanner){ await scanner.stop(); scanner=null; } document.getElementById('scannerView').classList.add('hidden'); }
 
-        function formatTime(timeStr) {
-            if(!timeStr) return "--";
-            const [hour, min] = timeStr.split(':');
-            const h = parseInt(hour);
-            const ampm = h >= 12 ? 'PM' : 'AM';
-            const h12 = h % 12 || 12;
-            return `${h12}:${min} ${ampm}`;
-        }
-
-        window.logout = function() {
-            location.reload();
-        }
+        function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
+        // Animation
+        for(let i=0;i<15;i++){ const b=document.createElement('i'); b.className='fa-solid fa-book book-icon'; b.style.left=Math.random()*100+'vw'; b.style.animationDuration=10+Math.random()*5+'s'; document.getElementById('bg-animation').appendChild(b);}
     </script>
 </body>
 </html>
