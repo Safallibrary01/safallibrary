@@ -11,12 +11,13 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
+        
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             /* LIGHT, FAST GRADIENT BACKGROUND */
             background: linear-gradient(-45deg, #e0f2fe, #f8fafc, #dbeafe, #bae6fd); 
             background-size: 400% 400%; 
-            animation: gradientBG 6s ease infinite; /* Speed increased from 15s to 6s */
+            animation: gradientBG 6s ease infinite; 
             min-height: 100vh; 
             overflow-x: hidden; 
         }
@@ -153,12 +154,7 @@
                 <h2 class="text-white font-black text-xl uppercase tracking-widest">Payment History</h2>
                 <p class="text-blue-400 text-xs font-bold tracking-widest mt-1">Past Transactions</p>
             </div>
-            <div class="p-6 overflow-y-auto bg-slate-50 flex-1" id="paymentListContainer">
-                <div class="text-center py-10 text-slate-400">
-                    <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-blue-500"></i>
-                    <p class="text-xs font-bold uppercase">Loading records...</p>
-                </div>
-            </div>
+            <div class="p-6 overflow-y-auto bg-slate-50 flex-1" id="paymentListContainer"></div>
         </div>
     </div>
 
@@ -214,21 +210,9 @@
 
     <style>@keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }</style>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, query, where, getDocs, addDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAEU3K8FzwfZOsdTHSOTBzPoQ7wWc1jIhk",
-            authDomain: "safallibrary02-4e47b.firebaseapp.com",
-            projectId: "safallibrary02-4e47b",
-            storageBucket: "safallibrary02-4e47b.firebasestorage.app",
-            messagingSenderId: "718136047267",
-            appId: "1:718136047267:web:1ff63497bcb84d05323116"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    <script>
+        // --- SECURE BACKEND CONNECTION ---
+        const BACKEND_URL = "https://test-eyaw.onrender.com";
         let studentData = null;
         let scanner = null;
 
@@ -240,6 +224,7 @@
                 document.getElementById('loginBtn').innerText = "Resuming Session...";
                 await attemptLogin(savedReg, savedPass);
             }
+            generateBackground(); // start floating books
         });
 
         // --- 2. LOGIN LOGIC ---
@@ -253,14 +238,20 @@
         async function attemptLogin(regNo, pass) {
             const btn = document.getElementById('loginBtn'); 
             btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...`;
+            document.getElementById('errorMsg').classList.add('hidden');
             
             try {
-                const q = query(collection(db,"students"), where("regNo","==",regNo), where("password","==",pass));
-                const snap = await getDocs(q);
+                // Call Node.js Backend instead of Firebase directly
+                const response = await fetch(`${BACKEND_URL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ regNo, pass })
+                });
                 
-                if(!snap.empty) {
-                    studentData = snap.docs[0].data(); 
-                    studentData.id = snap.docs[0].id;
+                const data = await response.json();
+                
+                if(data.success) {
+                    studentData = data.user; 
                     
                     // Save session
                     localStorage.setItem('safal_student_reg', regNo);
@@ -271,13 +262,14 @@
                     document.getElementById('dashboardSection').classList.remove('hidden');
                 } else { 
                     document.getElementById('errorMsg').classList.remove('hidden');
-                    btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
-                    localStorage.clear(); // Clear bad saved data
+                    localStorage.removeItem('safal_student_reg');
+                    localStorage.removeItem('safal_student_pass');
                 }
             } catch (err) {
                 console.error(err);
-                btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
+                alert("Cannot connect to server. Please try again later.");
             }
+            btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
         }
 
         window.logout = function() {
@@ -287,7 +279,7 @@
 
         // --- 3. RENDER DASHBOARD UI ---
         function renderDash() {
-            document.getElementById('dispName').innerText = studentData.name; 
+            document.getElementById('dispName').innerText = studentData.name || "Student"; 
             document.getElementById('dispRegNo').innerText = "#" + studentData.regNo;
             
             document.getElementById('dispTime').innerText = formatTime(studentData.shiftStart) + " - " + formatTime(studentData.shiftEnd);
@@ -297,24 +289,24 @@
             document.getElementById('profileImg').src = studentData.image || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
 
             // Smart Fee Warning Logic
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            const due = new Date(studentData.feeDueDate);
-            const feeBox = document.getElementById('feeBox');
-            const feeIcon = document.getElementById('feeIcon');
-            const dispFee = document.getElementById('dispFeeDate');
-            
-            if (due < today) {
-                // OVERDUE
-                feeBox.className = "bg-red-50 p-4 rounded-2xl border border-red-200 shadow-sm animate-pulse";
-                feeIcon.className = "w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-2";
-                feeIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
-                dispFee.className = "font-black text-sm mt-1 text-red-700";
-                dispFee.innerText = "OVERDUE (" + formatDateStr(studentData.feeDueDate) + ")";
-            } else {
-                // ACTIVE
-                dispFee.className = "font-bold text-sm mt-1 text-slate-800";
-                dispFee.innerText = formatDateStr(studentData.feeDueDate);
+            if(studentData.feeDueDate) {
+                const today = new Date();
+                today.setHours(0,0,0,0);
+                const due = new Date(studentData.feeDueDate);
+                const feeBox = document.getElementById('feeBox');
+                const feeIcon = document.getElementById('feeIcon');
+                const dispFee = document.getElementById('dispFeeDate');
+                
+                if (due < today) {
+                    feeBox.className = "bg-red-50 p-4 rounded-2xl border border-red-200 shadow-sm animate-pulse";
+                    feeIcon.className = "w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-2";
+                    feeIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+                    dispFee.className = "font-black text-sm mt-1 text-red-700";
+                    dispFee.innerText = "OVERDUE (" + formatDateStr(studentData.feeDueDate) + ")";
+                } else {
+                    dispFee.className = "font-bold text-sm mt-1 text-slate-800";
+                    dispFee.innerText = formatDateStr(studentData.feeDueDate);
+                }
             }
         }
 
@@ -325,12 +317,9 @@
             container.innerHTML = `<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-blue-500"></i><p class="text-xs font-bold uppercase">Loading records...</p></div>`;
 
             try {
-                // Fetching from 'payments' collection
-                const q = query(collection(db, "payments"), where("regNo", "==", studentData.regNo));
-                const snap = await getDocs(q);
-                
-                const payments = [];
-                snap.forEach(doc => payments.push(doc.data()));
+                // Fetch from Node.js Backend
+                const res = await fetch(`${BACKEND_URL}/api/payments/${studentData.regNo}`);
+                const payments = await res.json();
                 
                 // Sort descending by date (newest first)
                 payments.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -369,11 +358,7 @@
             }
         }
 
-        window.closePaymentHistory = () => {
-            document.getElementById('paymentModal').classList.add('hidden');
-        }
-
-        // --- RULES MODAL LOGIC ---
+        window.closePaymentHistory = () => { document.getElementById('paymentModal').classList.add('hidden'); }
         window.openRules = () => document.getElementById('rulesModal').classList.remove('hidden');
         window.closeRules = () => document.getElementById('rulesModal').classList.add('hidden');
 
@@ -382,21 +367,43 @@
             document.getElementById('scannerView').classList.remove('hidden');
             scanner = new Html5Qrcode("reader");
             scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 250 } }, async (code) => {
-                if (code.startsWith("SAFAL_SEAT_")) {
-                    const seatNum = code.split("_")[2]; 
+                
+                if (code.startsWith("SAFAL_SEAT_") || code === "SAFAL_LIB_ENTRY_2026") {
                     await stopAttendanceScanner();
-                    await addDoc(collection(db, "attendance"), { studentId: studentData.id, name: studentData.name, regNo: studentData.regNo, seatNo: seatNum, timestamp: new Date() });
-                    await updateDoc(doc(db, "students", studentData.id), { seatNo: seatNum });
-                    studentData.seatNo = seatNum; // Update local state
-                    renderDash(); // Refresh UI
-                    alert(`✅ Attendance Marked! Assigned to Seat ${seatNum}`);
-                } else if(code === "SAFAL_LIB_ENTRY_2026") {
-                    await stopAttendanceScanner();
-                    await addDoc(collection(db, "attendance"), { studentId: studentData.id, name: studentData.name, regNo: studentData.regNo, timestamp: new Date() });
-                    alert("✅ Entry Attendance Marked Successfully!");
+                    
+                    const seatNum = code.startsWith("SAFAL_SEAT_") ? code.split("_")[2] : null;
+                    
+                    // Send to Backend
+                    try {
+                        const payload = {
+                            studentId: studentData.id,
+                            name: studentData.name,
+                            regNo: studentData.regNo,
+                            seatNo: seatNum,
+                            timestamp: new Date().toISOString()
+                        };
+
+                        await fetch(`${BACKEND_URL}/api/attendance`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if(seatNum) {
+                            studentData.seatNo = seatNum; // Update local state
+                            renderDash(); 
+                            alert(`✅ Attendance Marked! Assigned to Seat ${seatNum}`);
+                        } else {
+                            alert("✅ Entry Attendance Marked Successfully!");
+                        }
+
+                    } catch(err) {
+                        alert("Error saving attendance to server.");
+                    }
                 }
             });
         }
+        
         window.stopAttendanceScanner = async () => { 
             if(scanner){ await scanner.stop(); scanner=null; } 
             document.getElementById('scannerView').classList.add('hidden'); 
@@ -411,17 +418,19 @@
         }
 
         // Background Animation Generator
-        const bgContainer = document.getElementById('bg-animation');
-        for(let i=0; i<20; i++){ 
-            const b = document.createElement('i'); 
-            b.className = 'fa-solid fa-book book-icon'; 
-            b.style.left = Math.random() * 100 + 'vw'; 
-            /* FASTER ANIMATION */
-            b.style.animationDuration = (4 + Math.random() * 4) + 's'; 
-            b.style.animationDelay = (Math.random() * 3) + 's';
-            const icons = ['fa-book', 'fa-graduation-cap', 'fa-pen', 'fa-laptop-code'];
-            b.classList.add(icons[Math.floor(Math.random() * icons.length)]);
-            bgContainer.appendChild(b);
+        function generateBackground() {
+            const bgContainer = document.getElementById('bg-animation');
+            bgContainer.innerHTML = ''; // clear old
+            for(let i=0; i<20; i++){ 
+                const b = document.createElement('i'); 
+                b.className = 'fa-solid fa-book book-icon'; 
+                b.style.left = Math.random() * 100 + 'vw'; 
+                b.style.animationDuration = (4 + Math.random() * 4) + 's'; 
+                b.style.animationDelay = (Math.random() * 3) + 's';
+                const icons = ['fa-book', 'fa-graduation-cap', 'fa-pen', 'fa-laptop-code'];
+                b.classList.add(icons[Math.floor(Math.random() * icons.length)]);
+                bgContainer.appendChild(b);
+            }
         }
     </script>
 </body>
