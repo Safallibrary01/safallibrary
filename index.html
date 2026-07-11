@@ -14,7 +14,7 @@
       gtag('config', 'G-BHFNMN8P1C');
     </script>
 
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
@@ -33,6 +33,7 @@
 </head>
 <body class="flex items-center justify-center p-4">
     <div id="bg-animation" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+    
     <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500">
         <div class="text-center mb-8">
             <div class="w-20 h-20 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg border-2 border-white">
@@ -71,9 +72,16 @@
                     <div class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase border border-white/30 flex items-center gap-1">
                         <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Active Profile
                     </div>
-                    <button onclick="logout()" class="bg-white/10 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center transition border border-white/30">
-                        <i class="fa-solid fa-power-off text-sm"></i>
-                    </button>
+                    
+                    <div class="flex items-center gap-2">
+                        <button onclick="openNotifications()" class="relative bg-white/10 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center transition border border-white/30">
+                            <i class="fa-solid fa-bell text-sm"></i>
+                            <span id="notifBadge" class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border border-blue-900 hidden"></span>
+                        </button>
+                        <button onclick="logout()" class="bg-white/10 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center transition border border-white/30">
+                            <i class="fa-solid fa-power-off text-sm"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="px-6 pb-6 relative text-center -mt-12">
@@ -121,6 +129,36 @@
                     <span class="text-slate-300">|</span>
                     <a href="https://wa.me/919305506411?text=Hi%20Admin,%20I%20need%20help%20with%20my%20library%20profile." target="_blank" class="text-green-600 font-bold text-xs hover:text-green-700 transition"><i class="fa-brands fa-whatsapp mr-1"></i> Support</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notifModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeNotifications()">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[85vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="bg-slate-900 p-5 text-center relative shrink-0">
+                <button onclick="closeNotifications()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="text-white font-black text-xl uppercase tracking-widest">Inbox</h2>
+                <p class="text-blue-400 text-xs font-bold tracking-widest mt-1">Updates & Announcements</p>
+            </div>
+            <div class="p-6 overflow-y-auto bg-slate-50 flex-1 space-y-3" id="notifListContainer">
+                </div>
+        </div>
+    </div>
+
+    <div id="alertModal" class="fixed inset-0 bg-slate-900/90 hidden z-[120] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl relative modal-pop overflow-hidden flex flex-col text-center border-2 border-red-500">
+            <div class="bg-red-600 p-6 text-white border-b border-red-700">
+                <div class="w-16 h-16 border-2 border-white/50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 bg-red-700 shadow-inner">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h2 class="font-black text-xl uppercase tracking-widest">Important Notice</h2>
+            </div>
+            <div class="p-6 text-slate-700 bg-white">
+                <p id="alertMessage" class="font-bold text-sm leading-relaxed text-slate-700 mb-6 border-l-4 border-red-500 pl-3 text-left">
+                    </p>
+                <button onclick="handleUserDismissAlert()" class="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold tracking-widest uppercase transition text-xs">
+                    I Understand
+                </button>
             </div>
         </div>
     </div>
@@ -228,12 +266,11 @@
         </div>
     </div>
 
-    <script type="module">
-        // ⚠️ REPLACE THIS WITH YOUR DEPLOYED RENDER BACKEND URL ⚠️
+    <script>
         const BACKEND_URL = 'https://test3-qi2z.onrender.com';
-
         let studentData = null;
         let scanner = null;
+        let backgroundSyncInterval = null;
 
         // Auto-login
         window.addEventListener('DOMContentLoaded', async () => {
@@ -245,7 +282,7 @@
             }
         });
 
-        // Login
+        // Login Submission
         document.getElementById('loginForm').addEventListener('submit', async(e) => {
             e.preventDefault(); 
             const r = document.getElementById('loginRegNo').value.trim().toUpperCase(); 
@@ -271,6 +308,16 @@
                     renderDash(); 
                     document.getElementById('loginSection').classList.add('hidden'); 
                     document.getElementById('dashboardSection').classList.remove('hidden');
+
+                    // ==========================================
+                    // 🚀 INITIAL NOTIFICATION & ALERTS CHECK
+                    // ==========================================
+                    handleBackendAlertSync(studentData);
+                    renderNotifications(studentData.notifications || []);
+
+                    // Start background polling to simulate real-time updates securely
+                    startBackgroundSync(regNo, pass);
+                    
                 } else {
                     document.getElementById('errorMsg').classList.remove('hidden');
                     btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
@@ -282,13 +329,157 @@
             }
         }
 
+        // ==========================================
+        // 🚀 SECURE BACKGROUND SYNC (POLLING)
+        // ==========================================
+        function startBackgroundSync(regNo, pass) {
+            if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
+            
+            // Check the backend every 5 seconds without freezing the UI
+            backgroundSyncInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ regNo, pass })
+                    });
+                    if (response.ok) {
+                        const freshData = await response.json();
+                        handleBackendAlertSync(freshData);
+                        renderNotifications(freshData.notifications || []);
+                        
+                        // Silently keep global student data up to date
+                        studentData = freshData;
+                    }
+                } catch(e) {
+                    // Ignore network blips during polling
+                }
+            }, 5000);
+        }
+
         window.logout = function() {
             localStorage.clear();
+            if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
             document.getElementById('fab-ai').classList.add('hidden');
             location.reload();
         }
 
-        // Dashboard
+        // ==========================================
+        // EMERGENCY ALERTS LOGIC (SYNC & DISMISS)
+        // ==========================================
+        
+        // This tracks the ID of the alert the user explicitly clicked "I Understand" on.
+        window.dismissedAlertId = null;
+
+        function handleBackendAlertSync(freshData) {
+            const modal = document.getElementById('alertModal');
+            
+            if (freshData.emergencyAlert && freshData.emergencyAlert.active) {
+                // If the alert is active, but the student hasn't dismissed THIS specific alert ID yet...
+                if (freshData.emergencyAlert.id !== window.dismissedAlertId) {
+                    // Only pop it up if it's currently hidden to avoid annoying re-renders
+                    if (modal.classList.contains('hidden')) {
+                        triggerEmergencyAlert(freshData.emergencyAlert.message);
+                    }
+                }
+            } else {
+                // If the admin turned it off, close the modal immediately and reset dismissal
+                closeAlert();
+                window.dismissedAlertId = null;
+            }
+        }
+
+        window.triggerEmergencyAlert = function(message) {
+            document.getElementById('alertMessage').innerText = message;
+            document.getElementById('alertModal').classList.remove('hidden');
+        }
+
+        window.closeAlert = function() {
+            document.getElementById('alertModal').classList.add('hidden');
+        }
+
+        // Fired when the student specifically clicks "I Understand"
+        window.handleUserDismissAlert = function() {
+            // Remember the ID of the alert they just dismissed so the 5-second interval doesn't pop it back up
+            if (studentData && studentData.emergencyAlert) {
+                window.dismissedAlertId = studentData.emergencyAlert.id;
+            }
+            closeAlert();
+        }
+
+        // ==========================================
+        // STANDARD INBOX NOTIFICATIONS LOGIC
+        // ==========================================
+        window.openNotifications = function() {
+            document.getElementById('notifModal').classList.remove('hidden');
+            document.getElementById('notifBadge').classList.add('hidden');
+            
+            // NEW: Save the current notifications signature so the app remembers they've been read
+            if (window.currentNotifSignature) {
+                localStorage.setItem('safal_seen_notifs_signature', window.currentNotifSignature);
+            }
+        }
+        
+        window.closeNotifications = function() {
+            document.getElementById('notifModal').classList.add('hidden');
+        }
+
+        window.renderNotifications = function(notifications) {
+            const container = document.getElementById('notifListContainer');
+            container.innerHTML = '';
+            
+            const currentTime = new Date().getTime();
+
+            // Filter out messages that are scheduled for the future OR have expired
+            const validNotifications = notifications.filter(notif => {
+                if(!notif.validFrom || !notif.validUntil) return true; 
+                return currentTime >= notif.validFrom && currentTime <= notif.validUntil;
+            });
+
+            // NEW: Create a unique text string (signature) based on titles and dates
+            window.currentNotifSignature = validNotifications.map(n => n.title + n.date).join('|');
+            const seenNotifSignature = localStorage.getItem('safal_seen_notifs_signature');
+
+            if(validNotifications.length > 0) {
+                // NEW: Only show badge if the modal is hidden AND there are actually new/different notifications
+                if (window.currentNotifSignature !== seenNotifSignature) {
+                    if (document.getElementById('notifModal').classList.contains('hidden')) {
+                        document.getElementById('notifBadge').classList.remove('hidden'); 
+                    }
+                } else {
+                    // Keep it hidden if they match what we already read
+                    document.getElementById('notifBadge').classList.add('hidden');
+                }
+                
+                const displayNotifs = validNotifications.reverse();
+
+                displayNotifs.forEach(notif => {
+                    container.innerHTML += `
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-bold text-sm text-slate-800">${notif.title}</h3>
+                                <span class="text-[9px] font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">${notif.date}</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">${notif.body}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                // Ensure badge is hidden if there are 0 active notifications
+                document.getElementById('notifBadge').classList.add('hidden');
+                container.innerHTML = `
+                    <div class="text-center py-10">
+                        <div class="w-12 h-12 bg-slate-200 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-xl shadow-inner">
+                            <i class="fa-regular fa-bell-slash"></i>
+                        </div>
+                        <p class="text-slate-500 font-bold text-sm">No new notifications</p>
+                    </div>`;
+            }
+        }
+
+        // ==========================================
+        // DASHBOARD RENDERING
+        // ==========================================
         function renderDash() {
             document.getElementById('dispName').innerText = studentData.name; 
             document.getElementById('dispRegNo').innerText = "#" + studentData.regNo;
@@ -321,13 +512,14 @@
                 dispFee.innerHTML = `<span>${formatDateStr(studentData.feeDueDate)}</span>`;
             }
 
-            // ADDED: Partial Payment UI Check
             if (studentData.pendingAmount && Number(studentData.pendingAmount) > 0) {
                 dispFee.innerHTML += `<span class="text-[9px] font-black bg-red-100 text-red-700 px-2 py-0.5 rounded border border-red-200 tracking-widest uppercase">Pending: ₹${studentData.pendingAmount}</span>`;
             }
         } 
 
-        // Payment History
+        // ==========================================
+        // OTHER PORTAL FEATURES
+        // ==========================================
         window.openPaymentHistory = async () => {
             document.getElementById('paymentModal').classList.remove('hidden');
             const container = document.getElementById('paymentListContainer');
@@ -348,7 +540,6 @@
                 const listDiv = container.querySelector('div');
 
                 payments.forEach(p => {
-                    // SAFE FALLBACK: Works with both old 'amount' and new 'paidAmount'/'totalAmount'
                     const paidAmt = p.paidAmount !== undefined ? p.paidAmount : p.amount;
                     const totalAmt = p.totalAmount !== undefined ? p.totalAmount : paidAmt;
                     const pendingAmt = p.pendingAmount || 0;
@@ -357,7 +548,6 @@
                         ? `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-red-200">DUE: ₹${pendingAmt}</span>`
                         : `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-200">PAID</span>`;
 
-                    // Only display / Total if there are actually pending dues for a cleaner UI
                     let amountDisplay = `₹${paidAmt}`;
                     if (pendingAmt > 0) {
                         amountDisplay += ` <span class="text-[10px] text-slate-400 font-bold tracking-normal ml-1">/ ₹${totalAmt}</span>`;
@@ -418,7 +608,6 @@
         }
         window.stopAttendanceScanner = async () => { if(scanner){ await scanner.stop(); scanner=null; } document.getElementById('scannerView').classList.add('hidden'); }
 
-        // Helpers & Animations
         function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
         function formatDateStr(dateStr) { if(!dateStr) return "--/--/----"; const d = new Date(dateStr); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
         
@@ -427,7 +616,9 @@
             const b = document.createElement('i'); b.className = 'fa-solid fa-book book-icon'; b.style.left = Math.random() * 100 + 'vw'; b.style.animationDuration = (4 + Math.random() * 4) + 's'; b.style.animationDelay = (Math.random() * 3) + 's'; const icons = ['fa-book', 'fa-graduation-cap', 'fa-pen', 'fa-laptop-code']; b.classList.add(icons[Math.floor(Math.random() * icons.length)]); bgContainer.appendChild(b);
         }
 
-        // AI ASSISTANT
+        // ==========================================
+        // AI ASSISTANT MODULE
+        // ==========================================
         let aiConversationHistory = [];
         let aiImageBase64 = null;
         let aiImageMimeType = null;
@@ -435,7 +626,6 @@
         window.openAiModal = () => document.getElementById('aiModal').classList.remove('hidden');
         window.closeAiModal = () => document.getElementById('aiModal').classList.add('hidden');
 
-        // Speech Recognition Setup
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition = null; let isAiRecording = false;
         if (SpeechRecognition) {
@@ -453,7 +643,6 @@
         }
         function stopAiMic() { isAiRecording = false; const micBtn = document.getElementById('ai-mic-btn'); micBtn.classList.remove('text-red-500', 'animate-pulse'); micBtn.classList.add('text-slate-400'); document.getElementById('ai-user-input').placeholder = "Ask a question..."; }
 
-        // Image Upload
         window.handleAiImageUpload = function(event) {
             const file = event.target.files[0]; if (!file) return;
             const reader = new FileReader();
