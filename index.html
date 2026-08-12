@@ -3,698 +3,677 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Our website is temporarily under maintenance. We'll be back soon.">
-    <title>We'll Be Right Back</title>
+    <title>My Safal Profile - Independence Day</title>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BHFNMN8P1C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
+      gtag('config', 'G-BHFNMN8P1C');
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
-        /* =====================================================
-           RESET
-        ===================================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            /* Seamless Indian Tricolor Gradient */
+            background: linear-gradient(-45deg, #FF9933, #FFFFFF, #138808); 
+            background-size: 400% 400%; 
+            animation: gradientBG 6s ease infinite; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
         }
-
-        html {
-            width: 100%;
-            min-height: 100%;
-        }
-
-        body {
-            width: 100%;
-            min-height: 100vh;
-            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background: #f6f7fb;
-            color: #171717;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-
-        /* =====================================================
-           BACKGROUND
-        ===================================================== */
-        .background {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .glow {
-            position: absolute;
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.20;
-            animation: glowFloat 10s ease-in-out infinite alternate;
-        }
-
-        .glow-one {
-            top: -120px;
-            left: -120px;
-            background: #6c63ff;
-        }
-
-        .glow-two {
-            right: -120px;
-            bottom: -120px;
-            background: #00b8d9;
-            animation-delay: -4s;
-        }
-
-        @keyframes glowFloat {
-            from { transform: translate(0, 0) scale(1); }
-            to { transform: translate(50px, 35px) scale(1.12); }
-        }
-
-        /* =====================================================
-           MAIN CARD
-        ===================================================== */
-        .wrapper {
-            width: min(92%, 1000px);
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-            gap: 35px;
-            align-items: center;
-            padding: 48px;
-            background: rgba(255, 255, 255, 0.80);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            border-radius: 32px;
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.08);
-        }
-
-        /* =====================================================
-           CONTENT
-        ===================================================== */
-        .content {
-            padding-left: 10px;
-        }
-
-        /* =====================================================
-           STATUS BADGE
-        ===================================================== */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 9px 15px;
-            margin-bottom: 22px;
-            background: #f1f1f1;
-            border-radius: 50px;
-            color: #666;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.7px;
-        }
-
-        .badge-dot {
-            width: 8px;
-            height: 8px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background: #f4b740;
-            box-shadow: 0 0 0 5px rgba(244, 183, 64, 0.12);
-            animation: statusBlink 1.6s ease-in-out infinite;
-        }
-
-        @keyframes statusBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.35; }
-        }
-
-        /* =====================================================
-           HEADING
-        ===================================================== */
-        h1 {
-            margin-bottom: 22px;
-            font-size: clamp(44px, 6vw, 66px);
-            line-height: 0.96;
-            letter-spacing: -3.5px;
-            font-weight: 750;
-        }
-
-        h1 .light {
-            color: #777;
-        }
-
-        /* =====================================================
-           DESCRIPTION
-        ===================================================== */
-        .description {
-            max-width: 470px;
-            color: #666;
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        /* =====================================================
-           PROGRESS
-        ===================================================== */
-        .progress-area {
-            width: min(100%, 420px);
-            margin-top: 31px;
-        }
-
-        .progress-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 9px;
-            color: #929292;
-            font-size: 11px;
-        }
-
-        .progress {
-            width: 100%;
-            height: 7px;
-            overflow: hidden;
-            border-radius: 20px;
-            background: #e7e7e7;
-        }
-
-        .progress-bar {
-            width: 68%;
-            height: 100%;
-            border-radius: inherit;
-            background: #171717;
-            animation: progressAnimation 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes progressAnimation {
-            from { width: 42%; }
-            to { width: 78%; }
-        }
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-        .footer {
-            margin-top: 28px;
-            color: #aaa;
-            font-size: 12px;
-        }
-
-        /* =====================================================
-           CHARACTER AREA
-        ===================================================== */
-        .character-area {
-            position: relative;
-            height: 430px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: visible;
-        }
-
-        /* =====================================================
-           GROUND
-        ===================================================== */
-        .ground {
-            position: absolute;
-            width: 300px;
-            height: 32px;
-            left: 50%;
-            bottom: 48px;
-            transform: translateX(-50%);
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.08);
-            filter: blur(5px);
-        }
-
-        /* =====================================================
-           PERSON
-        ===================================================== */
-        .person {
-            position: absolute;
-            width: 160px;
-            height: 315px;
-            left: 50%;
-            top: 55px;
-            transform: translateX(-42%);
-            animation: personFloat 3.2s ease-in-out infinite;
-        }
-
-        @keyframes personFloat {
-            0%, 100% { transform: translateX(-42%) translateY(0); }
-            50% { transform: translateX(-42%) translateY(-7px); }
-        }
-
-        /* =====================================================
-           HEAD
-        ===================================================== */
-        .head {
-            position: absolute;
-            width: 76px;
-            height: 78px;
-            left: 42px;
-            top: 10px;
-            background: #f2b58b;
-            border-radius: 45% 45% 48% 48%;
-            z-index: 5;
-        }
-
-        /* =====================================================
-           HAIR
-        ===================================================== */
-        .hair {
-            position: absolute;
-            width: 78px;
-            height: 39px;
-            left: 41px;
-            top: 5px;
-            background: #222;
-            border-radius: 42px 42px 13px 13px;
-            z-index: 7;
-        }
-
-        /* =====================================================
-           EYES & EYEBROWS (SAD EXPRESSION)
-        ===================================================== */
-        .eyebrow {
-            position: absolute;
-            width: 12px;
-            height: 2.5px;
-            background: #222;
-            border-radius: 2px;
-            z-index: 10;
-        }
-
-        .eyebrow-left {
-            left: 19px;
-            top: 32px;
-            transform: rotate(20deg);
-        }
-
-        .eyebrow-right {
-            left: 45px;
-            top: 32px;
-            transform: rotate(-20deg);
-        }
-
-        .eye {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            top: 39px;
-            background: #222;
-            border-radius: 50%;
-            z-index: 10;
-        }
-
-        .eye-left { left: 22px; }
-        .eye-right { left: 48px; }
-
-        /* =====================================================
-           NOSE
-        ===================================================== */
-        .nose {
-            position: absolute;
-            width: 7px;
-            height: 5px;
-            left: 35px;
-            top: 48px;
-            border-bottom: 1.5px solid #c17b61;
-            border-radius: 50%;
-            z-index: 10;
-        }
-
-        /* =====================================================
-           MOUTH (SAD FROWN)
-        ===================================================== */
-        .mouth {
-            position: absolute;
-            width: 14px;
-            height: 6px;
-            left: 31px;
-            top: 61px;
-            border-top: 2px solid #a75d51;
-            border-radius: 50% 50% 0 0;
-            z-index: 10;
-        }
-
-        /* =====================================================
-           BODY
-        ===================================================== */
-        .body {
-            position: absolute;
-            width: 108px;
-            height: 122px;
-            left: 26px;
-            top: 79px;
-            background: #202020;
-            border-radius: 30px 30px 20px 20px;
-            z-index: 3;
-        }
-
-        .logo {
-            position: absolute;
-            width: 27px;
-            height: 27px;
-            left: 40px;
-            top: 25px;
-            border: 3px solid #eee;
-            border-radius: 50%;
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .book-icon { 
+            position: absolute; 
+            font-size: 3rem; 
+            animation: floatUp 6s linear infinite; 
+            pointer-events: none; 
             opacity: 0.9;
         }
-
-        /* =====================================================
-           ARMS (APOLOGETIC / CLASPED HANDS)
-        ===================================================== */
-        .arm-left {
-            position: absolute;
-            width: 85px;
-            height: 26px;
-            left: 10px;
-            top: 100px;
-            background: #f2b58b;
-            border-radius: 30px;
-            transform-origin: left center;
-            transform: rotate(55deg);
-            z-index: 5;
-        }
-
-        .arm-right {
-            position: absolute;
-            width: 85px;
-            height: 26px;
-            left: 65px;
-            top: 100px;
-            background: #f2b58b;
-            border-radius: 30px;
-            transform-origin: right center;
-            transform: rotate(-55deg);
-            z-index: 6;
-        }
-
-        /* =====================================================
-           LEGS
-        ===================================================== */
-        .leg {
-            position: absolute;
-            width: 39px;
-            height: 108px;
-            top: 188px;
-            background: #303030;
-            border-radius: 10px;
-            z-index: 2;
-        }
-
-        .leg-left {
-            left: 34px;
-            transform: rotate(5deg);
-        }
-
-        .leg-right {
-            left: 82px;
-            transform: rotate(-5deg);
-        }
-
-        /* =====================================================
-           SHOES
-        ===================================================== */
-        .shoe {
-            position: absolute;
-            width: 56px;
-            height: 22px;
-            top: 285px;
-            background: #111;
-            border-radius: 20px 20px 8px 8px;
-            z-index: 3;
-        }
-
-        .shoe-left { left: 18px; }
-        .shoe-right { left: 86px; }
-
-        /* =====================================================
-           LAPTOP
-        ===================================================== */
-        .laptop {
-            position: absolute;
-            width: 205px;
-            right: 0;
-            bottom: 62px;
-            z-index: 15;
-            animation: laptopFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes laptopFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .screen {
-            width: 165px;
-            height: 105px;
-            margin: auto;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #111;
-            border: 6px solid #343434;
-            border-radius: 12px;
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
-        }
-
-        .screen-content {
-            width: 100%;
-            color: #52d8ff;
-            font-family: "Courier New", monospace;
-            font-size: 10px;
-            line-height: 1.65;
-            white-space: nowrap;
-        }
-
-        .terminal-green { color: #72ef7b; }
-
-        .keyboard {
-            width: 205px;
-            height: 19px;
-            margin-top: 4px;
-            background: #555;
-            border-radius: 3px 3px 11px 11px;
-        }
-
-        /* =====================================================
-           GEARS
-        ===================================================== */
-        .gear {
-            position: absolute;
-            color: #bdbdbd;
-            opacity: 0.45;
-            font-size: 29px;
-            animation: gearRotate 8s linear infinite;
-        }
-
-        .gear-one { right: 15px; top: 42px; }
-        .gear-two { left: 20px; bottom: 80px; font-size: 22px; animation-direction: reverse; }
-        .gear-three { right: 75px; top: 160px; font-size: 16px; opacity: 0.25; }
-
-        @keyframes gearRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* =====================================================
-           ONLINE SIGNAL
-        ===================================================== */
-        .signal {
-            position: absolute;
-            right: 35px;
-            top: 105px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            height: 22px;
-        }
-
-        .signal span {
-            display: block;
-            width: 4px;
-            border-radius: 5px;
-            background: #6edc8c;
-            animation: signalAnimation 1s ease-in-out infinite;
-        }
-
-        .signal span:nth-child(1) { height: 7px; animation-delay: 0s; }
-        .signal span:nth-child(2) { height: 11px; animation-delay: 0.15s; }
-        .signal span:nth-child(3) { height: 15px; animation-delay: 0.30s; }
-        .signal span:nth-child(4) { height: 19px; animation-delay: 0.45s; }
-
-        @keyframes signalAnimation {
-            50% { opacity: 0.25; transform: scaleY(0.6); }
-        }
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-        @media (max-width: 780px) {
-            body { padding: 25px 0; align-items: flex-start; }
-            .wrapper { width: min(94%, 550px); grid-template-columns: 1fr; gap: 10px; padding: 35px 25px; border-radius: 26px; text-align: center; }
-            .content { padding-left: 0; order: 1; }
-            .character-area { height: 350px; order: 2; margin-top: 5px; }
-            .description { margin-left: auto; margin-right: auto; }
-            .progress-area { margin-left: auto; margin-right: auto; text-align: left; }
-            .person { left: 43%; }
-            .laptop { right: 2%; bottom: 55px; transform: scale(0.85); }
-            .gear-one { right: 5px; }
-        }
-
-        @media (max-width: 480px) {
-            .wrapper { width: 94%; padding: 32px 20px 25px; }
-            h1 { font-size: 46px; letter-spacing: -2.5px; }
-            .description { font-size: 14px; }
-            .character-area { height: 330px; }
-            .person { transform: translateX(-52%) scale(0.88); }
-            .laptop { right: -12px; transform: scale(0.70); }
-            .gear-two { left: 5px; }
-            .signal { right: 15px; }
-        }
+        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(15deg); opacity: 0; } }
+        
+        .glass-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(20px); border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 2px solid rgba(255, 255, 255, 0.8); }
+        .digital-id { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
+        .scanner-overlay { box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.8); }
+        .hidden { display: none !important; }
+        .modal-pop { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
-
-<body>
-
-    <!-- =====================================================
-         BACKGROUND
-    ====================================================== -->
-    <div class="background">
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
+<body class="flex items-center justify-center p-4">
+    <div id="bg-animation" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+    
+    <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500 border-t-4 border-t-orange-500 border-b-4 border-b-green-600">
+        <div class="text-center mb-8">
+            <div class="w-20 h-20 bg-white text-white rounded-2xl flex items-center justify-center text-5xl mx-auto mb-4 shadow-lg border-2 border-slate-200">
+                🇮🇳
+            </div>
+            <h1 class="text-3xl font-black text-slate-800 tracking-tight">Student Portal</h1>
+            <p class="text-sm font-bold text-orange-600 uppercase tracking-widest mt-1">Safal Library <span class="text-blue-700"></span></p>
+        </div>
+        <form id="loginForm" class="space-y-4">
+            <div class="relative">
+                <i class="fa-solid fa-id-card absolute left-4 top-4 text-orange-500"></i>
+                <input type="text" id="loginRegNo" placeholder="Registration No 🇮🇳" class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-orange-100 uppercase font-bold outline-none focus:border-orange-500 transition" required>
+            </div>
+            <div class="relative">
+                <i class="fa-solid fa-lock absolute left-4 top-4 text-green-600"></i>
+                <input type="password" id="loginPass" placeholder="Password" class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-green-100 outline-none focus:border-green-500 transition" required>
+            </div>
+            <p id="errorMsg" class="text-red-600 text-xs text-center font-bold hidden bg-red-50 border border-red-200 p-3 rounded-xl animate-pulse">
+                <i class="fa-solid fa-circle-exclamation mr-1"></i> Invalid Credentials. Try again.
+            </p>
+            <button type="submit" id="loginBtn" class="w-full bg-blue-800 hover:bg-blue-900 text-white font-black text-lg py-4 rounded-xl shadow-xl shadow-blue-800/30 active:scale-95 transition">
+                Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+        </form>
+        <div class="text-center mt-6 flex flex-col gap-2">
+            <p class="text-[10px] text-slate-500 font-bold">Happy Independence Day
+                               <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 40px; border-radius: 4px; box-shadow: 0 4px 6px"></p>
+            <button onclick="openRules()" class="text-orange-600 text-xs font-black hover:underline tracking-wide uppercase">Terms & Conditions</button>
+        </div>
     </div>
 
-    <!-- =====================================================
-         MAIN CARD
-    ====================================================== -->
-    <main class="wrapper">
-
-        <!-- =================================================
-             LEFT SIDE
-        ================================================== -->
-        <section class="content">
-
-            <!-- STATUS -->
-            <div class="badge">
-                <span class="badge-dot"></span>
-                WEBSITE MAINTENANCE
-            </div>
-
-            <!-- HEADING -->
-            <h1>
-                We'll be<br>
-                <span class="light">right back.</span>
-            </h1>
-
-            <!-- DESCRIPTION -->
-            <p class="description">
-                Our little developer is really sorry about the downtime. We're currently fixing a few things, improving the experience, and getting everything ready to go live again.
-            </p>
-
-            <!-- PROGRESS -->
-            <div class="progress-area">
-                <div class="progress-info">
-                    <span>Bringing website back online...</span>
-                    <span>Working</span>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar"></div>
-                </div>
-            </div>
-
-            <!-- FOOTER -->
-            <div class="footer">
-                Thank you for your patience • We'll be live soon
-            </div>
-
-        </section>
-
-        <!-- =================================================
-             RIGHT SIDE — ACTION FIGURE
-        ================================================== -->
-        <section class="character-area">
-
-            <!-- FLOATING GEARS -->
-            <div class="gear gear-one">⚙</div>
-            <div class="gear gear-two">⚙</div>
-            <div class="gear gear-three">⚙</div>
-
-            <!-- ONLINE SIGNAL -->
-            <div class="signal">
-                <span></span><span></span><span></span><span></span>
-            </div>
-
-            <!-- GROUND SHADOW -->
-            <div class="ground"></div>
-
-            <!-- =================================================
-                 HUMAN CHARACTER
-            ================================================== -->
-            <div class="person">
-
-                <!-- HAIR -->
-                <div class="hair"></div>
-
-                <!-- HEAD -->
-                <div class="head">
-                    <div class="eyebrow eyebrow-left"></div>
-                    <div class="eyebrow eyebrow-right"></div>
-                    <div class="eye eye-left"></div>
-                    <div class="eye eye-right"></div>
-                    <div class="nose"></div>
-                    <div class="mouth"></div>
-                </div>
-
-                <!-- BODY -->
-                <div class="body">
-                    <div class="logo"></div>
-                </div>
-
-                <!-- ARMS (Clasped in front, apologetic pose) -->
-                <div class="arm-left"></div>
-                <div class="arm-right"></div>
-
-                <!-- LEGS -->
-                <div class="leg leg-left"></div>
-                <div class="leg leg-right"></div>
-
-                <!-- SHOES -->
-                <div class="shoe shoe-left"></div>
-                <div class="shoe shoe-right"></div>
-
-            </div>
-
-            <!-- =================================================
-                 LAPTOP
-            ================================================== -->
-            <div class="laptop">
-                <!-- SCREEN -->
-                <div class="screen">
-                    <div class="screen-content">
-                        &gt; fixing website...<br>
-                        &gt; checking files...<br>
-                        &gt; repairing bugs...<br>
-                        &gt;
-                        <span class="terminal-green">
-                            STATUS: ONLINE SOON
-                        </span>
+    <div id="dashboardSection" class="w-full max-w-md hidden z-10 modal-pop">
+        <div class="glass-card digital-id overflow-hidden border-4 border-white">
+            <div class="h-32 bg-[url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center relative">
+                <!-- Tricolor overlay -->
+                <div class="absolute inset-0 bg-gradient-to-r from-orange-500/80 via-white/50 to-green-600/80 backdrop-blur-sm"></div>
+                <div class="relative z-10 flex justify-between items-start p-4">
+                    <div class="bg-blue-900/80 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase border border-white/30 flex items-center gap-1 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> 🇮🇳 Active Profile
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button onclick="openNotifications()" class="relative bg-white/20 hover:bg-white/40 text-slate-800 w-8 h-8 rounded-full flex items-center justify-center transition border border-white/50 shadow">
+                            <i class="fa-solid fa-bell text-sm"></i>
+                            <span id="notifBadge" class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border border-white hidden"></span>
+                        </button>
+                        <button onclick="logout()" class="bg-white/20 hover:bg-white/40 text-slate-800 w-8 h-8 rounded-full flex items-center justify-center transition border border-white/50 shadow">
+                            <i class="fa-solid fa-power-off text-sm"></i>
+                        </button>
                     </div>
                 </div>
-                <!-- KEYBOARD -->
-                <div class="keyboard"></div>
             </div>
+            <div class="px-6 pb-6 relative text-center -mt-12">
+                <img id="profileImg" src="" class="w-28 h-28 mx-auto rounded-2xl border-4 border-white bg-slate-100 object-cover shadow-2xl relative z-20">
+                <div class="mt-4 mb-6">
+                    <h2 id="dispName" class="text-2xl font-black text-slate-800 tracking-tight">Student Name</h2>
+                    <div class="flex items-center justify-center gap-2 mt-1">
+                        <p id="dispRegNo" class="text-orange-600 font-black text-sm bg-orange-50 px-3 py-1 rounded-lg border border-orange-100">#---</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="bg-white p-4 rounded-2xl border border-orange-100 shadow-sm">
+                        <div class="w-8 h-8 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-clock"></i></div>
+                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Shift Time</p>
+                        <p id="dispTime" class="text-slate-800 font-bold text-sm mt-1">-- : --</p>
+                    </div>
+                    <div id="feeBox" class="bg-white p-4 rounded-2xl border border-green-100 shadow-sm transition-colors">
+                        <div class="w-8 h-8 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2" id="feeIcon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <p class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Valid Until</p>
+                        <p id="dispFeeDate" class="font-bold text-sm mt-1">--/--/----</p>
+                    </div>
+                </div>
+                <button onclick="startAttendanceScanner()" class="w-full bg-blue-800 hover:bg-blue-900 text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-blue-900/30 active:scale-95 transition flex items-center justify-center gap-3 border border-blue-700">
+                    <i class="fa-solid fa-qrcode text-2xl text-white"></i> SCAN TO ENTER
+                </button>
+                <button onclick="openPaymentHistory()" class="w-full bg-slate-50 text-slate-600 hover:bg-slate-100 py-3 rounded-2xl font-bold text-sm transition mt-3 border border-slate-200 flex items-center justify-center gap-2 mb-6">
+                    <i class="fa-solid fa-clock-rotate-left"></i> View Payment History
+                </button>
+                <div class="text-left bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 text-xs shadow-inner">
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                        <span class="text-slate-500 font-bold uppercase text-[10px]">Father's Name</span>
+                        <b id="dispFather" class="text-slate-800">--</b>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-200 pb-2">
+                        <span class="text-slate-500 font-bold uppercase text-[10px]">Aadhar No</span>
+                        <b id="dispAadhar" class="text-slate-800">[Aadhaar Redacted]</b>
+                    </div>
+                    <div class="pt-1">
+                        <span class="text-slate-500 font-bold uppercase text-[10px] block mb-1">Address</span>
+                        <p id="dispAddress" class="text-slate-700 font-medium leading-snug">--</p>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-center gap-4">
+                    <button onclick="openRules()" class="text-slate-500 font-bold text-xs hover:text-orange-600 transition"><i class="fa-solid fa-file-contract mr-1"></i> Rules</button>
+                    <span class="text-slate-300">|</span>
+                    <a href="https://wa.me/919305506411?text=Hi%20Admin,%20I%20need%20help%20with%20my%20library%20profile." target="_blank" class="text-green-600 font-bold text-xs hover:text-green-700 transition"><i class="fa-brands fa-whatsapp mr-1"></i> Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        </section>
+    <!-- Notifications Modal -->
+    <div id="notifModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeNotifications()">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[85vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="bg-blue-900 p-5 text-center relative shrink-0">
+                <button onclick="closeNotifications()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="text-white font-black text-xl uppercase tracking-widest">Inbox</h2>
+                <p class="text-orange-300 text-xs font-bold tracking-widest mt-1">Updates & Announcements</p>
+            </div>
+            <div class="p-6 overflow-y-auto bg-slate-50 flex-1 space-y-3" id="notifListContainer"></div>
+        </div>
+    </div>
 
-    </main>
+    <!-- Alert Modal -->
+    <div id="alertModal" class="fixed inset-0 bg-slate-900/90 hidden z-[120] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl relative modal-pop overflow-hidden flex flex-col text-center border-2 border-red-500">
+            <div class="bg-red-600 p-6 text-white border-b border-red-700">
+                <div class="w-16 h-16 border-2 border-white/50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 bg-red-700 shadow-inner">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h2 class="font-black text-xl uppercase tracking-widest">Important Notice</h2>
+            </div>
+            <div class="p-6 text-slate-700 bg-white">
+                <p id="alertMessage" class="font-bold text-sm leading-relaxed text-slate-700 mb-6 border-l-4 border-red-500 pl-3 text-left"></p>
+                <button onclick="handleUserDismissAlert()" class="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold tracking-widest uppercase transition text-xs">
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closePaymentHistory()">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[85vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="bg-blue-900 p-5 text-center relative shrink-0">
+                <button onclick="closePaymentHistory()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="text-white font-black text-xl uppercase tracking-widest">Payment History</h2>
+                <p class="text-orange-300 text-xs font-bold tracking-widest mt-1">Past Transactions</p>
+            </div>
+            <div class="p-6 overflow-y-auto bg-slate-50 flex-1" id="paymentListContainer"></div>
+        </div>
+    </div>
+
+    <!-- Rules Modal -->
+    <div id="rulesModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeRules()">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="bg-gradient-to-r from-orange-500 via-white to-green-600 p-1 shrink-0">
+                <div class="bg-blue-900 p-5 text-center relative rounded-t-2xl">
+                    <button onclick="closeRules()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
+                    <h2 class="text-white font-black text-xl uppercase tracking-widest">Library Rules</h2>
+                    <p class="text-green-300 text-xs font-bold tracking-widest mt-1">सफल पुस्तकालय के नियम</p>
+                </div>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-700 bg-slate-50">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-volume-xmark text-blue-800 text-lg"></i> 1. SILENCE / शांति</h3>
+                    <p class="text-slate-600 text-xs mb-1">Maintain strict silence upon entering the library premises.</p>
+                    <p class="text-slate-800 font-bold text-xs">पुस्तकालय परिसर में प्रवेश करते ही पूर्ण शांति बनाए रखें।</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-gavel text-orange-500 text-lg"></i> 2. DISCIPLINE / अनुशासन</h3>
+                    <p class="text-slate-600 text-xs mb-1">Any violence or misbehavior will be reported directly to the Ballia Judiciary.</p>
+                    <p class="text-slate-800 font-bold text-xs">हिंसा या दुर्व्यवहार की सूचना सीधे बलिया न्यायपालिका को दी जाएगी।</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-money-bill-wave text-green-600 text-lg"></i> 3. FEE POLICY / शुल्क नीति</h3>
+                    <p class="text-slate-600 text-xs mb-1">Fees are non-refundable, but can be managed according to your needs.</p>
+                    <p class="text-slate-800 font-bold text-xs">शुल्क वापस नहीं होगा, लेकिन जरूरत अनुसार व्यवस्थित किया जा सकता है।</p>
+                </div>
+                <div class="text-center pt-2">
+                    <button onclick="closeRules()" class="bg-blue-800 hover:bg-blue-900 text-white px-8 py-3 rounded-xl font-black text-sm transition shadow-lg w-full">I Agree / सहमत हूँ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scanner View -->
+    <div id="scannerView" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col items-center justify-center p-6 backdrop-blur-md modal-pop">
+        <h2 class="text-white font-black text-2xl mb-2 tracking-widest text-center">SCAN QR CODE 🇮🇳</h2>
+        <p class="text-orange-400 font-bold text-xs mb-8 text-center px-8">Point your camera at the desk QR or Entry QR to mark attendance.</p>
+        <div class="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-900 bg-black">
+            <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
+                <div class="w-3/4 h-3/4 border-2 border-white/50 rounded-2xl relative">
+                    <div class="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-orange-500 rounded-tl-xl"></div>
+                    <div class="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-orange-500 rounded-tr-xl"></div>
+                    <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-green-500 rounded-bl-xl"></div>
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-green-500 rounded-br-xl"></div>
+                    <div class="w-full h-1 bg-white/80 absolute top-0 left-0 shadow-[0_0_15px_rgba(255,255,255,0.8)] animate-[scan_2s_ease-in-out_infinite]"></div>
+                </div>
+            </div>
+            <div id="reader" class="w-full h-full object-cover"></div>
+        </div>
+        <button onclick="stopAttendanceScanner()" class="mt-10 bg-white/10 text-white hover:bg-white/20 border border-white/20 px-8 py-4 rounded-2xl font-black tracking-widest text-sm transition w-full max-w-sm">CANCEL SCAN</button>
+    </div>
+    <style>@keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }</style>
+
+    <!-- AI Floating Button -->
+    <button id="fab-ai" onclick="openAiModal()" class="fixed bottom-6 right-6 bg-orange-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-[0_10px_25px_rgba(255,153,51,0.5)] hover:bg-orange-600 hover:scale-110 active:scale-95 transition-all z-50 hidden modal-pop border-2 border-white">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+
+    <!-- AI Modal -->
+    <div id="aiModal" class="fixed inset-0 bg-slate-900/80 hidden z-[110] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeAiModal()">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden h-[85vh] flex flex-col" onclick="event.stopPropagation()">
+            <div class="bg-orange-500 p-4 flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xl"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h2 class="text-white font-black text-lg leading-tight">Safal AI</h2>
+                        <p class="text-orange-100 text-[10px] font-bold uppercase tracking-widest">Student Assistant</p>
+                    </div>
+                </div>
+                <div class="flex gap-3 items-center">
+                    <select id="ai-language" class="text-xs bg-white/20 text-white border border-white/30 rounded px-2 py-1 outline-none font-bold cursor-pointer">
+                        <option value="English" class="text-slate-800">English</option>
+                        <option value="Hindi" class="text-slate-800">Hindi</option>
+                        <option value="Hinglish" class="text-slate-800">Hinglish</option>
+                    </select>
+                    <button onclick="closeAiModal()" class="text-white/70 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+            </div>
+            <div id="ai-chat-history" class="p-4 overflow-y-auto flex-1 bg-slate-50 flex flex-col gap-3 text-sm">
+                <div class="bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] shadow-sm leading-relaxed">
+                    Welcome to Safal Library! 🇮🇳 Type, speak <i class="fa-solid fa-microphone text-orange-500 mx-1"></i>, or upload a picture <i class="fa-solid fa-camera text-orange-500 mx-1"></i> of your question.
+                </div>
+            </div>
+            <div id="ai-loading" class="hidden px-5 py-2 text-xs font-bold text-slate-400 italic bg-slate-50"><i class="fa-solid fa-circle-notch fa-spin mr-1 text-orange-500"></i> AI is thinking...</div>
+            <div id="ai-image-preview-container" class="hidden px-4 py-3 bg-slate-100 border-t border-slate-200 relative shrink-0">
+                <img id="ai-image-preview" src="" class="h-16 rounded-lg border border-slate-300 shadow-sm object-cover">
+                <button onclick="clearAiImage()" class="absolute top-1 left-2 bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-[10px] shadow hover:bg-red-500 transition"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="bg-white p-3 border-t border-slate-100 flex items-center gap-2 shrink-0">
+                <input type="file" id="ai-file-input" accept="image/*" class="hidden" onchange="handleAiImageUpload(event)">
+                <button onclick="document.getElementById('ai-file-input').click()" class="text-slate-400 hover:text-orange-500 transition p-2 bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-camera"></i></button>
+                <button id="ai-mic-btn" onclick="toggleAiMic()" class="text-slate-400 hover:text-orange-500 transition p-2 bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-microphone"></i></button>
+                <input type="text" id="ai-user-input" placeholder="Ask a question..." class="flex-1 bg-slate-100 border-none rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-100 font-medium text-slate-700" onkeypress="handleAiKeyPress(event)">
+                <button id="ai-send-btn" onclick="sendAiMessage()" class="bg-green-600 text-white w-12 h-12 rounded-xl flex items-center justify-center hover:bg-green-700 transition shadow-lg shadow-green-200 shrink-0"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS REMAIN UNCHANGED -->
+    <script>
+        const BACKEND_URL = 'https://test3-qi2z.onrender.com';
+        let studentData = null;
+        let scanner = null;
+        let backgroundSyncInterval = null;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            const savedReg = localStorage.getItem('safal_student_reg');
+            const savedPass = localStorage.getItem('safal_student_pass');
+            if(savedReg && savedPass) {
+                document.getElementById('loginBtn').innerText = "Resuming Session...";
+                await attemptLogin(savedReg, savedPass);
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async(e) => {
+            e.preventDefault(); 
+            const r = document.getElementById('loginRegNo').value.trim().toUpperCase(); 
+            const p = document.getElementById('loginPass').value.trim();
+            await attemptLogin(r, p);
+        });
+
+        async function attemptLogin(regNo, pass) {
+            const btn = document.getElementById('loginBtn'); 
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Authenticating...`;
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ regNo, pass })
+                });
+
+                if(response.ok) {
+                    studentData = await response.json();
+                    localStorage.setItem('safal_student_reg', regNo);
+                    localStorage.setItem('safal_student_pass', pass);
+                    renderDash(); 
+                    document.getElementById('loginSection').classList.add('hidden'); 
+                    document.getElementById('dashboardSection').classList.remove('hidden');
+
+                    handleBackendAlertSync(studentData);
+                    renderNotifications(studentData.notifications || []);
+                    startBackgroundSync(regNo, pass);
+                } else {
+                    document.getElementById('errorMsg').classList.remove('hidden');
+                    btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
+                    localStorage.clear();
+                }
+            } catch (err) {
+                console.error(err);
+                btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
+            }
+        }
+
+        function startBackgroundSync(regNo, pass) {
+            if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
+            backgroundSyncInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ regNo, pass })
+                    });
+                    if (response.ok) {
+                        const freshData = await response.json();
+                        handleBackendAlertSync(freshData);
+                        renderNotifications(freshData.notifications || []);
+                        studentData = freshData;
+                    }
+                } catch(e) { }
+            }, 5000);
+        }
+
+        window.logout = function() {
+            localStorage.clear();
+            if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
+            document.getElementById('fab-ai').classList.add('hidden');
+            location.reload();
+        }
+
+        window.dismissedAlertId = null;
+
+        function handleBackendAlertSync(freshData) {
+            const modal = document.getElementById('alertModal');
+            if (freshData.emergencyAlert && freshData.emergencyAlert.active) {
+                if (freshData.emergencyAlert.id !== window.dismissedAlertId) {
+                    if (modal.classList.contains('hidden')) {
+                        triggerEmergencyAlert(freshData.emergencyAlert.message);
+                    }
+                }
+            } else {
+                closeAlert();
+                window.dismissedAlertId = null;
+            }
+        }
+
+        window.triggerEmergencyAlert = function(message) {
+            document.getElementById('alertMessage').innerText = message;
+            document.getElementById('alertModal').classList.remove('hidden');
+        }
+
+        window.closeAlert = function() { document.getElementById('alertModal').classList.add('hidden'); }
+
+        window.handleUserDismissAlert = function() {
+            if (studentData && studentData.emergencyAlert) { window.dismissedAlertId = studentData.emergencyAlert.id; }
+            closeAlert();
+        }
+
+        window.openNotifications = function() {
+            document.getElementById('notifModal').classList.remove('hidden');
+            document.getElementById('notifBadge').classList.add('hidden');
+            if (window.currentNotifSignature) { localStorage.setItem('safal_seen_notifs_signature', window.currentNotifSignature); }
+        }
+        
+        window.closeNotifications = function() { document.getElementById('notifModal').classList.add('hidden'); }
+
+        window.renderNotifications = function(notifications) {
+            const container = document.getElementById('notifListContainer');
+            container.innerHTML = '';
+            const currentTime = new Date().getTime();
+
+            const validNotifications = notifications.filter(notif => {
+                if(!notif.validFrom || !notif.validUntil) return true; 
+                return currentTime >= notif.validFrom && currentTime <= notif.validUntil;
+            });
+
+            window.currentNotifSignature = validNotifications.map(n => n.title + n.date).join('|');
+            const seenNotifSignature = localStorage.getItem('safal_seen_notifs_signature');
+
+            if(validNotifications.length > 0) {
+                if (window.currentNotifSignature !== seenNotifSignature) {
+                    if (document.getElementById('notifModal').classList.contains('hidden')) {
+                        document.getElementById('notifBadge').classList.remove('hidden'); 
+                    }
+                } else { document.getElementById('notifBadge').classList.add('hidden'); }
+                
+                const displayNotifs = validNotifications.reverse();
+                displayNotifs.forEach(notif => {
+                    container.innerHTML += `
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="font-bold text-sm text-slate-800">${notif.title}</h3>
+                                <span class="text-[9px] font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded border border-slate-100">${notif.date}</span>
+                            </div>
+                            <p class="text-xs text-slate-600 mt-2 leading-relaxed">${notif.body}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                document.getElementById('notifBadge').classList.add('hidden');
+                container.innerHTML = `
+                    <div class="text-center py-10">
+                        <div class="w-12 h-12 bg-slate-200 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-xl shadow-inner">
+                            <i class="fa-regular fa-bell-slash"></i>
+                        </div>
+                        <p class="text-slate-500 font-bold text-sm">No new notifications</p>
+                    </div>`;
+            }
+        }
+
+        function renderDash() {
+            document.getElementById('dispName').innerText = studentData.name; 
+            document.getElementById('dispRegNo').innerText = "#" + studentData.regNo;
+            document.getElementById('dispTime').innerText = formatTime(studentData.shiftStart) + " - " + formatTime(studentData.shiftEnd);
+            document.getElementById('dispFather').innerText = studentData.father || "N/A"; 
+            document.getElementById('dispAddress').innerText = studentData.address || "N/A"; 
+            document.getElementById('profileImg').src = studentData.image || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
+
+            if (studentData.aiEnabled !== false) {
+                document.getElementById('fab-ai').classList.remove('hidden');
+            } else { document.getElementById('fab-ai').classList.add('hidden'); }
+
+            const today = new Date(); today.setHours(0,0,0,0);
+            const due = new Date(studentData.feeDueDate);
+            const feeBox = document.getElementById('feeBox');
+            const feeIcon = document.getElementById('feeIcon');
+            const dispFee = document.getElementById('dispFeeDate');
+            
+            if (due < today) {
+                feeBox.className = "bg-red-50 p-4 rounded-2xl border border-red-200 shadow-sm animate-pulse";
+                feeIcon.className = "w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-2";
+                feeIcon.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+                dispFee.className = "font-black text-sm mt-1 text-red-700 flex flex-col items-center gap-1";
+                dispFee.innerHTML = `<span>OVERDUE (${formatDateStr(studentData.feeDueDate)})</span>`;
+            } else {
+                dispFee.className = "font-bold text-sm mt-1 text-slate-800 flex flex-col items-center gap-1";
+                dispFee.innerHTML = `<span>${formatDateStr(studentData.feeDueDate)}</span>`;
+            }
+
+            if (studentData.pendingAmount && Number(studentData.pendingAmount) > 0) {
+                dispFee.innerHTML += `<span class="text-[9px] font-black bg-red-100 text-red-700 px-2 py-0.5 rounded border border-red-200 tracking-widest uppercase">Pending: ₹${studentData.pendingAmount}</span>`;
+            }
+        } 
+
+        window.openPaymentHistory = async () => {
+            document.getElementById('paymentModal').classList.remove('hidden');
+            const container = document.getElementById('paymentListContainer');
+            container.innerHTML = `<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-orange-500"></i><p class="text-xs font-bold uppercase">Loading records...</p></div>`;
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/payments/${studentData.regNo}`);
+                const payments = await response.json();
+                payments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                if(payments.length === 0) {
+                    container.innerHTML = `<div class="text-center py-10"><div class="w-16 h-16 bg-slate-200 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner"><i class="fa-solid fa-receipt"></i></div><p class="text-slate-500 font-bold">No payment history found.</p><p class="text-[10px] text-slate-400 mt-1">Recent payments may take time to update.</p></div>`;
+                    return;
+                }
+
+                container.innerHTML = '<div class="space-y-3"></div>';
+                const listDiv = container.querySelector('div');
+
+                payments.forEach(p => {
+                    const paidAmt = p.paidAmount !== undefined ? p.paidAmount : p.amount;
+                    const totalAmt = p.totalAmount !== undefined ? p.totalAmount : paidAmt;
+                    const pendingAmt = p.pendingAmount || 0;
+                    
+                    const statusBadge = pendingAmt > 0 
+                        ? `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-red-200">DUE: ₹${pendingAmt}</span>`
+                        : `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest border border-green-200">PAID</span>`;
+
+                    let amountDisplay = `₹${paidAmt}`;
+                    if (pendingAmt > 0) {
+                        amountDisplay += ` <span class="text-[10px] text-slate-400 font-bold tracking-normal ml-1">/ ₹${totalAmt}</span>`;
+                    }
+
+                    listDiv.innerHTML += `
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-orange-300 transition">
+                            <div>
+                                <p class="text-xs font-bold text-slate-400 mb-1"><i class="fa-regular fa-calendar text-[10px]"></i> ${formatDateStr(p.date)}</p>
+                                <p class="font-black text-slate-800 text-lg">${amountDisplay}</p>
+                                <p class="text-[9px] text-slate-500 font-bold uppercase mt-1 tracking-widest bg-slate-50 inline-block px-2 py-0.5 rounded border border-slate-100">Valid: ${formatDateStr(p.startDate)} - ${formatDateStr(p.endDate)}</p>
+                            </div>
+                            <div class="text-right flex flex-col items-end">
+                                ${statusBadge}
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mt-2">${p.mode || 'Cash'}</p>
+                            </div>
+                        </div>`;
+                });
+            } catch(e) {
+                container.innerHTML = `<p class="text-center text-red-500 text-xs font-bold py-10">Error loading history. Check connection.</p>`;
+            }
+        }
+        window.closePaymentHistory = () => document.getElementById('paymentModal').classList.add('hidden');
+
+        window.openRules = () => document.getElementById('rulesModal').classList.remove('hidden');
+        window.closeRules = () => document.getElementById('rulesModal').classList.add('hidden');
+
+        window.startAttendanceScanner = () => {
+            document.getElementById('scannerView').classList.remove('hidden');
+            scanner = new Html5Qrcode("reader");
+            scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 250, height: 250 } }, async (code) => {
+                await stopAttendanceScanner();
+                
+                let payload = {};
+                if (code.startsWith("SAFAL_SEAT_")) {
+                    const seatNum = code.split("_")[2];
+                    payload = { type: 'seat', studentId: studentData.id, name: studentData.name, regNo: studentData.regNo, seatNo: seatNum };
+                    studentData.seatNo = seatNum; 
+                    renderDash(); 
+                } else if(code === "SAFAL_LIB_ENTRY_2026") {
+                    payload = { type: 'entry', studentId: studentData.id, name: studentData.name, regNo: studentData.regNo };
+                }
+
+                try {
+                    const response = await fetch(`${BACKEND_URL}/api/attendance`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    if(result.success) alert(`✅ ${result.message}`);
+                } catch (err) {
+                    alert("Error marking attendance. Try again.");
+                }
+            });
+        }
+        window.stopAttendanceScanner = async () => { if(scanner){ await scanner.stop(); scanner=null; } document.getElementById('scannerView').classList.add('hidden'); }
+
+        function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
+        function formatDateStr(dateStr) { if(!dateStr) return "--/--/----"; const d = new Date(dateStr); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
+        
+        // 🚀 Modified Background Generator (Indian Flags)
+        const bgContainer = document.getElementById('bg-animation');
+        for(let i=0; i<30; i++){ 
+            const b = document.createElement('div'); 
+            b.className = 'book-icon flex items-center justify-center'; 
+            b.style.left = Math.random() * 100 + 'vw'; 
+            b.style.animationDuration = (5 + Math.random() * 5) + 's'; 
+            b.style.animationDelay = (Math.random() * 4) + 's'; 
+            b.innerHTML = '🇮🇳'; 
+            bgContainer.appendChild(b);
+        }
+
+        let aiConversationHistory = [];
+        let aiImageBase64 = null;
+        let aiImageMimeType = null;
+        
+        window.openAiModal = () => document.getElementById('aiModal').classList.remove('hidden');
+        window.closeAiModal = () => document.getElementById('aiModal').classList.add('hidden');
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition = null; let isAiRecording = false;
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition(); recognition.continuous = false; recognition.interimResults = false;
+            recognition.onstart = function() { isAiRecording = true; const micBtn = document.getElementById('ai-mic-btn'); micBtn.classList.add('text-red-500', 'animate-pulse'); micBtn.classList.remove('text-slate-400'); document.getElementById('ai-user-input').placeholder = "Listening..."; };
+            recognition.onresult = function(event) { document.getElementById('ai-user-input').value += event.results[0][0].transcript; };
+            recognition.onerror = function(event) { stopAiMic(); }; recognition.onend = function() { stopAiMic(); };
+        } else { document.getElementById('ai-mic-btn').style.display = 'none'; }
+
+        window.toggleAiMic = function() {
+            if (!recognition) return;
+            if (isAiRecording) { recognition.stop(); } else {
+                const lang = document.getElementById('ai-language').value; recognition.lang = lang === 'Hindi' ? 'hi-IN' : (lang === 'English' ? 'en-US' : 'hi-IN'); recognition.start();
+            }
+        }
+        function stopAiMic() { isAiRecording = false; const micBtn = document.getElementById('ai-mic-btn'); micBtn.classList.remove('text-red-500', 'animate-pulse'); micBtn.classList.add('text-slate-400'); document.getElementById('ai-user-input').placeholder = "Ask a question..."; }
+
+        window.handleAiImageUpload = function(event) {
+            const file = event.target.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('ai-image-preview').src = e.target.result; document.getElementById('ai-image-preview-container').classList.remove('hidden');
+                aiImageBase64 = e.target.result.split(',')[1]; aiImageMimeType = file.type;
+            };
+            reader.readAsDataURL(file);
+        }
+        window.clearAiImage = function() { aiImageBase64 = null; aiImageMimeType = null; document.getElementById('ai-image-preview-container').classList.add('hidden'); document.getElementById('ai-file-input').value = ""; }
+
+        window.handleAiKeyPress = function(event) { if (event.key === 'Enter') window.sendAiMessage(); }
+        function formatAiText(text) {
+            let formatted = text.replace(/\n/g, '<br>'); formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-orange-600 font-bold underline">$1</a>');
+            formatted = formatted.replace(/(https?:\/\/[^\s]+)(?!["'])/g, function(url) { if(url.includes('href=')) return url; return `<a href="${url}" target="_blank" class="text-orange-600 font-bold underline">${url}</a>`; }); return formatted;
+        }
+
+        function appendAiMessage(sender, text, imageUrl = null) {
+            const history = document.getElementById('ai-chat-history'); const msgDiv = document.createElement('div');
+            msgDiv.className = sender === 'user' ? "bg-orange-500 text-white p-3 rounded-2xl rounded-tr-sm self-end max-w-[85%] shadow-sm leading-relaxed" : "bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] shadow-sm leading-relaxed";
+            msgDiv.innerHTML = formatAiText(text);
+            if (imageUrl) { const img = document.createElement('img'); img.src = imageUrl; img.className = "mt-2 rounded-lg max-w-full border border-black/10 shadow-sm"; msgDiv.appendChild(img); }
+            history.appendChild(msgDiv); history.scrollTop = history.scrollHeight;
+        }
+
+        window.sendAiMessage = async function() {
+            const userInput = document.getElementById('ai-user-input'); const sendBtn = document.getElementById('ai-send-btn'); const loading = document.getElementById('ai-loading');
+            const text = userInput.value.trim(); const hasImage = aiImageBase64 !== null;
+            if (!text && !hasImage) return;
+
+            const previewUrl = hasImage ? document.getElementById('ai-image-preview').src : null;
+            appendAiMessage('user', text, previewUrl);
+            userInput.value = ''; sendBtn.disabled = true; loading.classList.remove('hidden');
+
+            let userParts = [];
+            if (text) userParts.push({ text: text });
+            if (hasImage) userParts.push({ inline_data: { mime_type: aiImageMimeType, data: aiImageBase64 } });
+
+            window.clearAiImage(); aiConversationHistory.push({ role: "user", parts: userParts });
+
+            const studentName = studentData ? studentData.name : "Student";
+            const currentLang = document.getElementById('ai-language').value;
+            const dynamicSystemInstruction = `You are the official AI assistant for Safal Library. You are talking to a student named ${studentName}. Library Information: Opening Hours: 7 AM - 7 PM, Mobile No: 9305506411, Address: Near BSNL Office Bansdih Ballia. CRITICAL RULE: You MUST respond to the user in ${currentLang}. Help them solve questions, equations, or provide library info. Be encouraging.`;
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/ai`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ systemInstruction: dynamicSystemInstruction, contents: aiConversationHistory })
+                });
+
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                const data = await response.json();
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                aiConversationHistory.push({ role: "model", parts: [{ text: aiResponse }] });
+                appendAiMessage('ai', aiResponse);
+            } catch (error) {
+                appendAiMessage('ai', 'Sorry, the server is busy. Please wait a few seconds and try again.');
+                aiConversationHistory.pop(); 
+            } finally {
+                sendBtn.disabled = false; loading.classList.add('hidden'); userInput.focus();
+            }
+        }
+    </script>
 </body>
 </html>
