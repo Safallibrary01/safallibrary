@@ -33,11 +33,18 @@
         .book-icon { 
             position: absolute; 
             font-size: 3rem; 
-            animation: floatUp 6s linear infinite; 
+            animation: floatUp 6s ease-in infinite; 
             pointer-events: none; 
             opacity: 0.9;
         }
-        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(15deg); opacity: 0; } }
+        
+        /* Flags now float up from bottom to top with a slight spin */
+        @keyframes floatUp { 
+            0% { transform: translateY(110vh) rotate(-20deg); opacity: 0; } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(45deg); opacity: 0; } 
+        }
         
         .glass-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(20px); border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 2px solid rgba(255, 255, 255, 0.8); }
         .digital-id { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
@@ -52,8 +59,9 @@
     
     <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500 border-t-4 border-t-orange-500 border-b-4 border-b-green-600">
         <div class="text-center mb-8">
-            <div class="w-20 h-20 bg-white text-white rounded-2xl flex items-center justify-center text-5xl mx-auto mb-4 shadow-lg border-2 border-slate-200">
-                🇮🇳
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-orange-400 p-1 overflow-hidden">
+                <!-- Using your custom local logo (logo.png) -->
+                <img src="logo.png" alt="Safal Library Logo" class="w-full h-full object-cover rounded-full">
             </div>
             <h1 class="text-3xl font-black text-slate-800 tracking-tight">Student Portal</h1>
             <p class="text-sm font-bold text-orange-600 uppercase tracking-widest mt-1">Safal Library <span class="text-blue-700"></span></p>
@@ -61,7 +69,7 @@
         <form id="loginForm" class="space-y-4">
             <div class="relative">
                 <i class="fa-solid fa-id-card absolute left-4 top-4 text-orange-500"></i>
-                <input type="text" id="loginRegNo" placeholder="Registration No 🇮🇳" class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-orange-100 uppercase font-bold outline-none focus:border-orange-500 transition" required>
+                <input type="text" id="loginRegNo" placeholder="Registration No " class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-orange-100 uppercase font-bold outline-none focus:border-orange-500 transition" required>
             </div>
             <div class="relative">
                 <i class="fa-solid fa-lock absolute left-4 top-4 text-green-600"></i>
@@ -75,8 +83,7 @@
             </button>
         </form>
         <div class="text-center mt-6 flex flex-col gap-2">
-            <p class="text-[10px] text-slate-500 font-bold">Happy Independence Day
-                               <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 40px; border-radius: 4px; box-shadow: 0 4px 6px"></p>
+            <p class="text-[10px] text-slate-500 font-bold">Happy Independence Day!</p>
             <button onclick="openRules()" class="text-orange-600 text-xs font-black hover:underline tracking-wide uppercase">Terms & Conditions</button>
         </div>
     </div>
@@ -88,7 +95,7 @@
                 <div class="absolute inset-0 bg-gradient-to-r from-orange-500/80 via-white/50 to-green-600/80 backdrop-blur-sm"></div>
                 <div class="relative z-10 flex justify-between items-start p-4">
                     <div class="bg-blue-900/80 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase border border-white/30 flex items-center gap-1 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> 🇮🇳 Active Profile
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>Active Profile
                     </div>
                     
                     <div class="flex items-center gap-2">
@@ -135,7 +142,7 @@
                     </div>
                     <div class="flex justify-between items-center border-b border-slate-200 pb-2">
                         <span class="text-slate-500 font-bold uppercase text-[10px]">Aadhar No</span>
-                        <b id="dispAadhar" class="text-slate-800">[Aadhaar Redacted]</b>
+                        <b id="dispAadhar" class="text-slate-800">N/A</b>
                     </div>
                     <div class="pt-1">
                         <span class="text-slate-500 font-bold uppercase text-[10px] block mb-1">Address</span>
@@ -291,7 +298,6 @@
         </div>
     </div>
 
-    <!-- SCRIPTS REMAIN UNCHANGED -->
     <script>
         const BACKEND_URL = 'https://test3-qi2z.onrender.com';
         let studentData = null;
@@ -575,15 +581,18 @@
         function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
         function formatDateStr(dateStr) { if(!dateStr) return "--/--/----"; const d = new Date(dateStr); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
         
-        // 🚀 Modified Background Generator (Indian Flags)
+        // 🚀 Modified Background Generator (Indian Flags moving bottom to top randomly)
         const bgContainer = document.getElementById('bg-animation');
         for(let i=0; i<30; i++){ 
             const b = document.createElement('div'); 
             b.className = 'book-icon flex items-center justify-center'; 
             b.style.left = Math.random() * 100 + 'vw'; 
-            b.style.animationDuration = (5 + Math.random() * 5) + 's'; 
-            b.style.animationDelay = (Math.random() * 4) + 's'; 
-            b.innerHTML = '🇮🇳'; 
+            b.style.animationDuration = (4 + Math.random() * 6) + 's'; 
+            b.style.animationDelay = (Math.random() * 5) + 's'; 
+            
+            // Replaced the emoji with an SVG image tag
+            b.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 35px; border-radius: 4px; opacity: 0.8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'; 
+            
             bgContainer.appendChild(b);
         }
 
