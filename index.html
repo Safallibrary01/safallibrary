@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Safal Profile - Independence Day</title>
+    <title>My Safal Profile</title>
     
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BHFNMN8P1C"></script>
     <script>
@@ -14,39 +15,16 @@
       gtag('config', 'G-BHFNMN8P1C');
     </script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&display=swap');
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            /* Seamless Indian Tricolor Gradient */
-            background: linear-gradient(-45deg, #FF9933, #FFFFFF, #138808); 
-            background-size: 400% 400%; 
-            animation: gradientBG 6s ease infinite; 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(-45deg, #e0f2fe, #f8fafc, #dbeafe, #bae6fd); background-size: 400% 400%; animation: gradientBG 6s ease infinite; min-height: 100vh; overflow-x: hidden; }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .book-icon { 
-            position: absolute; 
-            font-size: 3rem; 
-            animation: floatUp 6s ease-in infinite; 
-            pointer-events: none; 
-            opacity: 0.9;
-        }
-        
-        /* Flags now float up from bottom to top with a slight spin */
-        @keyframes floatUp { 
-            0% { transform: translateY(110vh) rotate(-20deg); opacity: 0; } 
-            10% { opacity: 1; } 
-            90% { opacity: 1; }
-            100% { transform: translateY(-20vh) rotate(45deg); opacity: 0; } 
-        }
-        
-        .glass-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(20px); border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 2px solid rgba(255, 255, 255, 0.8); }
+        .book-icon { position: absolute; color: rgba(37, 99, 235, 0.15); font-size: 4rem; animation: floatUp 6s linear infinite; pointer-events: none; }
+        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.6); }
         .digital-id { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
         .scanner-overlay { box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.8); }
         .hidden { display: none !important; }
@@ -57,53 +35,49 @@
 <body class="flex items-center justify-center p-4">
     <div id="bg-animation" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
     
-    <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500 border-t-4 border-t-orange-500 border-b-4 border-b-green-600">
+    <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500">
         <div class="text-center mb-8">
-            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-orange-400 p-1 overflow-hidden">
-                <!-- Using your custom local logo (logo.png) -->
-                <img src="logo.png" alt="Safal Library Logo" class="w-full h-full object-cover rounded-full">
-            </div>
-            <h1 class="text-3xl font-black text-slate-800 tracking-tight">Student Portal</h1>
-            <p class="text-sm font-bold text-orange-600 uppercase tracking-widest mt-1">Safal Library <span class="text-blue-700"></span></p>
-        </div>
+    <img src="logo.png" alt="Safal Library Logo" class="w-28 h-28 mx-auto mb-4 rounded-full shadow-md border-4 border-white object-cover bg-black">
+    <h1 class="text-3xl font-black text-slate-800 tracking-tight">Student Portal</h1>
+    <p class="text-sm font-bold text-blue-600 uppercase tracking-widest mt-1">Safal Library</p>
+</div>
         <form id="loginForm" class="space-y-4">
             <div class="relative">
-                <i class="fa-solid fa-id-card absolute left-4 top-4 text-orange-500"></i>
-                <input type="text" id="loginRegNo" placeholder="Registration No " class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-orange-100 uppercase font-bold outline-none focus:border-orange-500 transition" required>
+                <i class="fa-solid fa-id-card absolute left-4 top-4 text-slate-400"></i>
+                <input type="text" id="loginRegNo" placeholder="Registration No " class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-slate-200 uppercase font-bold outline-none focus:border-blue-500 transition" required>
             </div>
             <div class="relative">
-                <i class="fa-solid fa-lock absolute left-4 top-4 text-green-600"></i>
-                <input type="password" id="loginPass" placeholder="Password" class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-green-100 outline-none focus:border-green-500 transition" required>
+                <i class="fa-solid fa-lock absolute left-4 top-4 text-slate-400"></i>
+                <input type="password" id="loginPass" placeholder="Password" class="w-full pl-11 pr-4 py-3 rounded-xl border-2 border-slate-200 outline-none focus:border-blue-500 transition" required>
             </div>
             <p id="errorMsg" class="text-red-600 text-xs text-center font-bold hidden bg-red-50 border border-red-200 p-3 rounded-xl animate-pulse">
                 <i class="fa-solid fa-circle-exclamation mr-1"></i> Invalid Credentials. Try again.
             </p>
-            <button type="submit" id="loginBtn" class="w-full bg-blue-800 hover:bg-blue-900 text-white font-black text-lg py-4 rounded-xl shadow-xl shadow-blue-800/30 active:scale-95 transition">
+            <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black text-lg py-4 rounded-xl shadow-xl shadow-blue-600/30 active:scale-95 transition">
                 Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </form>
         <div class="text-center mt-6 flex flex-col gap-2">
-            <p class="text-[10px] text-slate-500 font-bold">Happy Independence Day!</p>
-            <button onclick="openRules()" class="text-orange-600 text-xs font-black hover:underline tracking-wide uppercase">Terms & Conditions</button>
+            <p class="text-[10px] text-slate-400 font-bold">By logging in, you agree to our</p>
+            <button onclick="openRules()" class="text-blue-600 text-xs font-black hover:underline tracking-wide uppercase">Terms & Conditions</button>
         </div>
     </div>
 
     <div id="dashboardSection" class="w-full max-w-md hidden z-10 modal-pop">
         <div class="glass-card digital-id overflow-hidden border-4 border-white">
             <div class="h-32 bg-[url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80')] bg-cover bg-center relative">
-                <!-- Tricolor overlay -->
-                <div class="absolute inset-0 bg-gradient-to-r from-orange-500/80 via-white/50 to-green-600/80 backdrop-blur-sm"></div>
+                <div class="absolute inset-0 bg-blue-900/70 backdrop-blur-sm"></div>
                 <div class="relative z-10 flex justify-between items-start p-4">
-                    <div class="bg-blue-900/80 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase border border-white/30 flex items-center gap-1 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>Active Profile
+                    <div class="bg-white/20 backdrop-blur-md text-white px-3 py-1 rounded-lg text-[10px] font-black tracking-widest uppercase border border-white/30 flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Active Profile
                     </div>
                     
                     <div class="flex items-center gap-2">
-                        <button onclick="openNotifications()" class="relative bg-white/20 hover:bg-white/40 text-slate-800 w-8 h-8 rounded-full flex items-center justify-center transition border border-white/50 shadow">
+                        <button onclick="openNotifications()" class="relative bg-white/10 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center transition border border-white/30">
                             <i class="fa-solid fa-bell text-sm"></i>
-                            <span id="notifBadge" class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border border-white hidden"></span>
+                            <span id="notifBadge" class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border border-blue-900 hidden"></span>
                         </button>
-                        <button onclick="logout()" class="bg-white/20 hover:bg-white/40 text-slate-800 w-8 h-8 rounded-full flex items-center justify-center transition border border-white/50 shadow">
+                        <button onclick="logout()" class="bg-white/10 hover:bg-white/30 text-white w-8 h-8 rounded-full flex items-center justify-center transition border border-white/30">
                             <i class="fa-solid fa-power-off text-sm"></i>
                         </button>
                     </div>
@@ -114,35 +88,35 @@
                 <div class="mt-4 mb-6">
                     <h2 id="dispName" class="text-2xl font-black text-slate-800 tracking-tight">Student Name</h2>
                     <div class="flex items-center justify-center gap-2 mt-1">
-                        <p id="dispRegNo" class="text-orange-600 font-black text-sm bg-orange-50 px-3 py-1 rounded-lg border border-orange-100">#---</p>
+                        <p id="dispRegNo" class="text-blue-600 font-black text-sm bg-blue-50 px-3 py-1 rounded-lg border border-blue-100">#---</p>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div class="bg-white p-4 rounded-2xl border border-orange-100 shadow-sm">
-                        <div class="w-8 h-8 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-clock"></i></div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+                        <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2"><i class="fa-solid fa-clock"></i></div>
                         <p class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Shift Time</p>
                         <p id="dispTime" class="text-slate-800 font-bold text-sm mt-1">-- : --</p>
                     </div>
-                    <div id="feeBox" class="bg-white p-4 rounded-2xl border border-green-100 shadow-sm transition-colors">
+                    <div id="feeBox" class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm transition-colors">
                         <div class="w-8 h-8 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto mb-2" id="feeIcon"><i class="fa-solid fa-calendar-check"></i></div>
                         <p class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Valid Until</p>
                         <p id="dispFeeDate" class="font-bold text-sm mt-1">--/--/----</p>
                     </div>
                 </div>
-                <button onclick="startAttendanceScanner()" class="w-full bg-blue-800 hover:bg-blue-900 text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-blue-900/30 active:scale-95 transition flex items-center justify-center gap-3 border border-blue-700">
-                    <i class="fa-solid fa-qrcode text-2xl text-white"></i> SCAN TO ENTER
+                <button onclick="startAttendanceScanner()" class="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-2xl font-black text-lg shadow-xl shadow-slate-900/30 active:scale-95 transition flex items-center justify-center gap-3 border border-slate-700">
+                    <i class="fa-solid fa-qrcode text-2xl text-blue-400"></i> SCAN TO ENTER
                 </button>
-                <button onclick="openPaymentHistory()" class="w-full bg-slate-50 text-slate-600 hover:bg-slate-100 py-3 rounded-2xl font-bold text-sm transition mt-3 border border-slate-200 flex items-center justify-center gap-2 mb-6">
+                <button onclick="openPaymentHistory()" class="w-full bg-blue-50 text-blue-600 hover:bg-blue-100 py-3 rounded-2xl font-bold text-sm transition mt-3 border border-blue-100 flex items-center justify-center gap-2 mb-6">
                     <i class="fa-solid fa-clock-rotate-left"></i> View Payment History
                 </button>
-                <div class="text-left bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3 text-xs shadow-inner">
+                <div class="text-left bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 text-xs">
                     <div class="flex justify-between items-center border-b border-slate-200 pb-2">
                         <span class="text-slate-500 font-bold uppercase text-[10px]">Father's Name</span>
                         <b id="dispFather" class="text-slate-800">--</b>
                     </div>
                     <div class="flex justify-between items-center border-b border-slate-200 pb-2">
                         <span class="text-slate-500 font-bold uppercase text-[10px]">Aadhar No</span>
-                        <b id="dispAadhar" class="text-slate-800">N/A</b>
+                        <b id="dispAadhar" class="text-slate-800">--</b>
                     </div>
                     <div class="pt-1">
                         <span class="text-slate-500 font-bold uppercase text-[10px] block mb-1">Address</span>
@@ -150,7 +124,7 @@
                     </div>
                 </div>
                 <div class="mt-6 flex justify-center gap-4">
-                    <button onclick="openRules()" class="text-slate-500 font-bold text-xs hover:text-orange-600 transition"><i class="fa-solid fa-file-contract mr-1"></i> Rules</button>
+                    <button onclick="openRules()" class="text-slate-400 font-bold text-xs hover:text-blue-600 transition"><i class="fa-solid fa-file-contract mr-1"></i> Rules</button>
                     <span class="text-slate-300">|</span>
                     <a href="https://wa.me/919305506411?text=Hi%20Admin,%20I%20need%20help%20with%20my%20library%20profile." target="_blank" class="text-green-600 font-bold text-xs hover:text-green-700 transition"><i class="fa-brands fa-whatsapp mr-1"></i> Support</a>
                 </div>
@@ -158,19 +132,18 @@
         </div>
     </div>
 
-    <!-- Notifications Modal -->
     <div id="notifModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeNotifications()">
         <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[85vh] flex flex-col" onclick="event.stopPropagation()">
-            <div class="bg-blue-900 p-5 text-center relative shrink-0">
+            <div class="bg-slate-900 p-5 text-center relative shrink-0">
                 <button onclick="closeNotifications()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
                 <h2 class="text-white font-black text-xl uppercase tracking-widest">Inbox</h2>
-                <p class="text-orange-300 text-xs font-bold tracking-widest mt-1">Updates & Announcements</p>
+                <p class="text-blue-400 text-xs font-bold tracking-widest mt-1">Updates & Announcements</p>
             </div>
-            <div class="p-6 overflow-y-auto bg-slate-50 flex-1 space-y-3" id="notifListContainer"></div>
+            <div class="p-6 overflow-y-auto bg-slate-50 flex-1 space-y-3" id="notifListContainer">
+                </div>
         </div>
     </div>
 
-    <!-- Alert Modal -->
     <div id="alertModal" class="fixed inset-0 bg-slate-900/90 hidden z-[120] flex items-center justify-center p-4 backdrop-blur-md">
         <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl relative modal-pop overflow-hidden flex flex-col text-center border-2 border-red-500">
             <div class="bg-red-600 p-6 text-white border-b border-red-700">
@@ -180,7 +153,8 @@
                 <h2 class="font-black text-xl uppercase tracking-widest">Important Notice</h2>
             </div>
             <div class="p-6 text-slate-700 bg-white">
-                <p id="alertMessage" class="font-bold text-sm leading-relaxed text-slate-700 mb-6 border-l-4 border-red-500 pl-3 text-left"></p>
+                <p id="alertMessage" class="font-bold text-sm leading-relaxed text-slate-700 mb-6 border-l-4 border-red-500 pl-3 text-left">
+                    </p>
                 <button onclick="handleUserDismissAlert()" class="w-full bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold tracking-widest uppercase transition text-xs">
                     I Understand
                 </button>
@@ -188,63 +162,58 @@
         </div>
     </div>
 
-    <!-- Payment Modal -->
     <div id="paymentModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closePaymentHistory()">
         <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[85vh] flex flex-col" onclick="event.stopPropagation()">
-            <div class="bg-blue-900 p-5 text-center relative shrink-0">
+            <div class="bg-slate-900 p-5 text-center relative shrink-0">
                 <button onclick="closePaymentHistory()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
                 <h2 class="text-white font-black text-xl uppercase tracking-widest">Payment History</h2>
-                <p class="text-orange-300 text-xs font-bold tracking-widest mt-1">Past Transactions</p>
+                <p class="text-blue-400 text-xs font-bold tracking-widest mt-1">Past Transactions</p>
             </div>
             <div class="p-6 overflow-y-auto bg-slate-50 flex-1" id="paymentListContainer"></div>
         </div>
     </div>
 
-    <!-- Rules Modal -->
     <div id="rulesModal" class="fixed inset-0 bg-slate-900/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeRules()">
         <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl relative modal-pop overflow-hidden max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
-            <div class="bg-gradient-to-r from-orange-500 via-white to-green-600 p-1 shrink-0">
-                <div class="bg-blue-900 p-5 text-center relative rounded-t-2xl">
-                    <button onclick="closeRules()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
-                    <h2 class="text-white font-black text-xl uppercase tracking-widest">Library Rules</h2>
-                    <p class="text-green-300 text-xs font-bold tracking-widest mt-1">सफल पुस्तकालय के नियम</p>
-                </div>
+            <div class="bg-slate-900 p-5 text-center relative shrink-0">
+                <button onclick="closeRules()" class="absolute top-4 right-5 text-white/50 hover:text-white text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
+                <h2 class="text-white font-black text-xl uppercase tracking-widest">Library Rules</h2>
+                <p class="text-blue-400 text-xs font-bold tracking-widest mt-1">सफल पुस्तकालय के नियम</p>
             </div>
             <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-700 bg-slate-50">
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-volume-xmark text-blue-800 text-lg"></i> 1. SILENCE / शांति</h3>
+                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-volume-xmark text-blue-500 text-lg"></i> 1. SILENCE / शांति</h3>
                     <p class="text-slate-600 text-xs mb-1">Maintain strict silence upon entering the library premises.</p>
                     <p class="text-slate-800 font-bold text-xs">पुस्तकालय परिसर में प्रवेश करते ही पूर्ण शांति बनाए रखें।</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-gavel text-orange-500 text-lg"></i> 2. DISCIPLINE / अनुशासन</h3>
+                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-gavel text-red-500 text-lg"></i> 2. DISCIPLINE / अनुशासन</h3>
                     <p class="text-slate-600 text-xs mb-1">Any violence or misbehavior will be reported directly to the Ballia Judiciary.</p>
                     <p class="text-slate-800 font-bold text-xs">हिंसा या दुर्व्यवहार की सूचना सीधे बलिया न्यायपालिका को दी जाएगी।</p>
                 </div>
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-money-bill-wave text-green-600 text-lg"></i> 3. FEE POLICY / शुल्क नीति</h3>
+                    <h3 class="font-black text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-money-bill-wave text-green-500 text-lg"></i> 3. FEE POLICY / शुल्क नीति</h3>
                     <p class="text-slate-600 text-xs mb-1">Fees are non-refundable, but can be managed according to your needs.</p>
                     <p class="text-slate-800 font-bold text-xs">शुल्क वापस नहीं होगा, लेकिन जरूरत अनुसार व्यवस्थित किया जा सकता है।</p>
                 </div>
                 <div class="text-center pt-2">
-                    <button onclick="closeRules()" class="bg-blue-800 hover:bg-blue-900 text-white px-8 py-3 rounded-xl font-black text-sm transition shadow-lg w-full">I Agree / सहमत हूँ</button>
+                    <button onclick="closeRules()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-black text-sm transition shadow-lg shadow-blue-200 w-full">I Agree / सहमत हूँ</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Scanner View -->
     <div id="scannerView" class="fixed inset-0 bg-black/95 z-[100] hidden flex flex-col items-center justify-center p-6 backdrop-blur-md modal-pop">
-        <h2 class="text-white font-black text-2xl mb-2 tracking-widest text-center">SCAN QR CODE 🇮🇳</h2>
-        <p class="text-orange-400 font-bold text-xs mb-8 text-center px-8">Point your camera at the desk QR or Entry QR to mark attendance.</p>
-        <div class="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-900 bg-black">
+        <h2 class="text-white font-black text-2xl mb-2 tracking-widest">SCAN QR CODE</h2>
+        <p class="text-blue-400 font-bold text-xs mb-8 text-center px-8">Point your camera at the desk QR or Entry QR to mark attendance.</p>
+        <div class="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-700 bg-black">
             <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
                 <div class="w-3/4 h-3/4 border-2 border-white/50 rounded-2xl relative">
-                    <div class="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-orange-500 rounded-tl-xl"></div>
-                    <div class="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-orange-500 rounded-tr-xl"></div>
-                    <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-green-500 rounded-bl-xl"></div>
-                    <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-green-500 rounded-br-xl"></div>
-                    <div class="w-full h-1 bg-white/80 absolute top-0 left-0 shadow-[0_0_15px_rgba(255,255,255,0.8)] animate-[scan_2s_ease-in-out_infinite]"></div>
+                    <div class="absolute -top-1 -left-1 w-6 h-6 border-t-4 border-l-4 border-blue-500 rounded-tl-xl"></div>
+                    <div class="absolute -top-1 -right-1 w-6 h-6 border-t-4 border-r-4 border-blue-500 rounded-tr-xl"></div>
+                    <div class="absolute -bottom-1 -left-1 w-6 h-6 border-b-4 border-l-4 border-blue-500 rounded-bl-xl"></div>
+                    <div class="absolute -bottom-1 -right-1 w-6 h-6 border-b-4 border-r-4 border-blue-500 rounded-br-xl"></div>
+                    <div class="w-full h-1 bg-blue-500/80 absolute top-0 left-0 shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_2s_ease-in-out_infinite]"></div>
                 </div>
             </div>
             <div id="reader" class="w-full h-full object-cover"></div>
@@ -253,20 +222,18 @@
     </div>
     <style>@keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }</style>
 
-    <!-- AI Floating Button -->
-    <button id="fab-ai" onclick="openAiModal()" class="fixed bottom-6 right-6 bg-orange-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-[0_10px_25px_rgba(255,153,51,0.5)] hover:bg-orange-600 hover:scale-110 active:scale-95 transition-all z-50 hidden modal-pop border-2 border-white">
+    <button id="fab-ai" onclick="openAiModal()" class="fixed bottom-6 right-6 bg-blue-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-[0_10px_25px_rgba(37,99,235,0.5)] hover:bg-blue-700 hover:scale-110 active:scale-95 transition-all z-50 hidden modal-pop border-2 border-white">
         <i class="fa-solid fa-robot"></i>
     </button>
 
-    <!-- AI Modal -->
     <div id="aiModal" class="fixed inset-0 bg-slate-900/80 hidden z-[110] flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeAiModal()">
         <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl relative modal-pop overflow-hidden h-[85vh] flex flex-col" onclick="event.stopPropagation()">
-            <div class="bg-orange-500 p-4 flex justify-between items-center shrink-0">
+            <div class="bg-blue-600 p-4 flex justify-between items-center shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white text-xl"><i class="fa-solid fa-robot"></i></div>
                     <div>
                         <h2 class="text-white font-black text-lg leading-tight">Safal AI</h2>
-                        <p class="text-orange-100 text-[10px] font-bold uppercase tracking-widest">Student Assistant</p>
+                        <p class="text-blue-200 text-[10px] font-bold uppercase tracking-widest">Student Assistant</p>
                     </div>
                 </div>
                 <div class="flex gap-3 items-center">
@@ -280,20 +247,20 @@
             </div>
             <div id="ai-chat-history" class="p-4 overflow-y-auto flex-1 bg-slate-50 flex flex-col gap-3 text-sm">
                 <div class="bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] shadow-sm leading-relaxed">
-                    Welcome to Safal Library! 🇮🇳 Type, speak <i class="fa-solid fa-microphone text-orange-500 mx-1"></i>, or upload a picture <i class="fa-solid fa-camera text-orange-500 mx-1"></i> of your question.
+                    Welcome to Safal Library! Type, speak <i class="fa-solid fa-microphone text-blue-500 mx-1"></i>, or upload a picture <i class="fa-solid fa-camera text-blue-500 mx-1"></i> of your question.
                 </div>
             </div>
-            <div id="ai-loading" class="hidden px-5 py-2 text-xs font-bold text-slate-400 italic bg-slate-50"><i class="fa-solid fa-circle-notch fa-spin mr-1 text-orange-500"></i> AI is thinking...</div>
+            <div id="ai-loading" class="hidden px-5 py-2 text-xs font-bold text-slate-400 italic bg-slate-50"><i class="fa-solid fa-circle-notch fa-spin mr-1"></i> AI is thinking...</div>
             <div id="ai-image-preview-container" class="hidden px-4 py-3 bg-slate-100 border-t border-slate-200 relative shrink-0">
                 <img id="ai-image-preview" src="" class="h-16 rounded-lg border border-slate-300 shadow-sm object-cover">
                 <button onclick="clearAiImage()" class="absolute top-1 left-2 bg-slate-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-[10px] shadow hover:bg-red-500 transition"><i class="fa-solid fa-times"></i></button>
             </div>
             <div class="bg-white p-3 border-t border-slate-100 flex items-center gap-2 shrink-0">
                 <input type="file" id="ai-file-input" accept="image/*" class="hidden" onchange="handleAiImageUpload(event)">
-                <button onclick="document.getElementById('ai-file-input').click()" class="text-slate-400 hover:text-orange-500 transition p-2 bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-camera"></i></button>
-                <button id="ai-mic-btn" onclick="toggleAiMic()" class="text-slate-400 hover:text-orange-500 transition p-2 bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-microphone"></i></button>
-                <input type="text" id="ai-user-input" placeholder="Ask a question..." class="flex-1 bg-slate-100 border-none rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-orange-100 font-medium text-slate-700" onkeypress="handleAiKeyPress(event)">
-                <button id="ai-send-btn" onclick="sendAiMessage()" class="bg-green-600 text-white w-12 h-12 rounded-xl flex items-center justify-center hover:bg-green-700 transition shadow-lg shadow-green-200 shrink-0"><i class="fa-solid fa-paper-plane"></i></button>
+                <button onclick="document.getElementById('ai-file-input').click()" class="text-slate-400 hover:text-blue-600 transition p-2 bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-camera"></i></button>
+                <button id="ai-mic-btn" onclick="toggleAiMic()" class="text-slate-400 hover:text-blue-600 transition p-2 bg-slate-100 rounded-full w-10 h-10 flex items-center justify-center"><i class="fa-solid fa-microphone"></i></button>
+                <input type="text" id="ai-user-input" placeholder="Ask a question..." class="flex-1 bg-slate-100 border-none rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-blue-100 font-medium text-slate-700" onkeypress="handleAiKeyPress(event)">
+                <button id="ai-send-btn" onclick="sendAiMessage()" class="bg-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center hover:bg-blue-700 transition shadow-lg shadow-blue-200 shrink-0"><i class="fa-solid fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
@@ -304,6 +271,7 @@
         let scanner = null;
         let backgroundSyncInterval = null;
 
+        // Auto-login
         window.addEventListener('DOMContentLoaded', async () => {
             const savedReg = localStorage.getItem('safal_student_reg');
             const savedPass = localStorage.getItem('safal_student_pass');
@@ -313,6 +281,7 @@
             }
         });
 
+        // Login Submission
         document.getElementById('loginForm').addEventListener('submit', async(e) => {
             e.preventDefault(); 
             const r = document.getElementById('loginRegNo').value.trim().toUpperCase(); 
@@ -339,9 +308,15 @@
                     document.getElementById('loginSection').classList.add('hidden'); 
                     document.getElementById('dashboardSection').classList.remove('hidden');
 
+                    // ==========================================
+                    // 🚀 INITIAL NOTIFICATION & ALERTS CHECK
+                    // ==========================================
                     handleBackendAlertSync(studentData);
                     renderNotifications(studentData.notifications || []);
+
+                    // Start background polling to simulate real-time updates securely
                     startBackgroundSync(regNo, pass);
+                    
                 } else {
                     document.getElementById('errorMsg').classList.remove('hidden');
                     btn.innerHTML = `Secure Login <i class="fa-solid fa-arrow-right ml-2"></i>`;
@@ -353,8 +328,13 @@
             }
         }
 
+        // ==========================================
+        // 🚀 SECURE BACKGROUND SYNC (POLLING)
+        // ==========================================
         function startBackgroundSync(regNo, pass) {
             if (backgroundSyncInterval) clearInterval(backgroundSyncInterval);
+            
+            // Check the backend every 5 seconds without freezing the UI
             backgroundSyncInterval = setInterval(async () => {
                 try {
                     const response = await fetch(`${BACKEND_URL}/api/login`, {
@@ -366,9 +346,13 @@
                         const freshData = await response.json();
                         handleBackendAlertSync(freshData);
                         renderNotifications(freshData.notifications || []);
+                        
+                        // Silently keep global student data up to date
                         studentData = freshData;
                     }
-                } catch(e) { }
+                } catch(e) {
+                    // Ignore network blips during polling
+                }
             }, 5000);
         }
 
@@ -379,17 +363,26 @@
             location.reload();
         }
 
+        // ==========================================
+        // EMERGENCY ALERTS LOGIC (SYNC & DISMISS)
+        // ==========================================
+        
+        // This tracks the ID of the alert the user explicitly clicked "I Understand" on.
         window.dismissedAlertId = null;
 
         function handleBackendAlertSync(freshData) {
             const modal = document.getElementById('alertModal');
+            
             if (freshData.emergencyAlert && freshData.emergencyAlert.active) {
+                // If the alert is active, but the student hasn't dismissed THIS specific alert ID yet...
                 if (freshData.emergencyAlert.id !== window.dismissedAlertId) {
+                    // Only pop it up if it's currently hidden to avoid annoying re-renders
                     if (modal.classList.contains('hidden')) {
                         triggerEmergencyAlert(freshData.emergencyAlert.message);
                     }
                 }
             } else {
+                // If the admin turned it off, close the modal immediately and reset dismissal
                 closeAlert();
                 window.dismissedAlertId = null;
             }
@@ -400,42 +393,65 @@
             document.getElementById('alertModal').classList.remove('hidden');
         }
 
-        window.closeAlert = function() { document.getElementById('alertModal').classList.add('hidden'); }
+        window.closeAlert = function() {
+            document.getElementById('alertModal').classList.add('hidden');
+        }
 
+        // Fired when the student specifically clicks "I Understand"
         window.handleUserDismissAlert = function() {
-            if (studentData && studentData.emergencyAlert) { window.dismissedAlertId = studentData.emergencyAlert.id; }
+            // Remember the ID of the alert they just dismissed so the 5-second interval doesn't pop it back up
+            if (studentData && studentData.emergencyAlert) {
+                window.dismissedAlertId = studentData.emergencyAlert.id;
+            }
             closeAlert();
         }
 
+        // ==========================================
+        // STANDARD INBOX NOTIFICATIONS LOGIC
+        // ==========================================
         window.openNotifications = function() {
             document.getElementById('notifModal').classList.remove('hidden');
             document.getElementById('notifBadge').classList.add('hidden');
-            if (window.currentNotifSignature) { localStorage.setItem('safal_seen_notifs_signature', window.currentNotifSignature); }
+            
+            // NEW: Save the current notifications signature so the app remembers they've been read
+            if (window.currentNotifSignature) {
+                localStorage.setItem('safal_seen_notifs_signature', window.currentNotifSignature);
+            }
         }
         
-        window.closeNotifications = function() { document.getElementById('notifModal').classList.add('hidden'); }
+        window.closeNotifications = function() {
+            document.getElementById('notifModal').classList.add('hidden');
+        }
 
         window.renderNotifications = function(notifications) {
             const container = document.getElementById('notifListContainer');
             container.innerHTML = '';
+            
             const currentTime = new Date().getTime();
 
+            // Filter out messages that are scheduled for the future OR have expired
             const validNotifications = notifications.filter(notif => {
                 if(!notif.validFrom || !notif.validUntil) return true; 
                 return currentTime >= notif.validFrom && currentTime <= notif.validUntil;
             });
 
+            // NEW: Create a unique text string (signature) based on titles and dates
             window.currentNotifSignature = validNotifications.map(n => n.title + n.date).join('|');
             const seenNotifSignature = localStorage.getItem('safal_seen_notifs_signature');
 
             if(validNotifications.length > 0) {
+                // NEW: Only show badge if the modal is hidden AND there are actually new/different notifications
                 if (window.currentNotifSignature !== seenNotifSignature) {
                     if (document.getElementById('notifModal').classList.contains('hidden')) {
                         document.getElementById('notifBadge').classList.remove('hidden'); 
                     }
-                } else { document.getElementById('notifBadge').classList.add('hidden'); }
+                } else {
+                    // Keep it hidden if they match what we already read
+                    document.getElementById('notifBadge').classList.add('hidden');
+                }
                 
                 const displayNotifs = validNotifications.reverse();
+
                 displayNotifs.forEach(notif => {
                     container.innerHTML += `
                         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -448,6 +464,7 @@
                     `;
                 });
             } else {
+                // Ensure badge is hidden if there are 0 active notifications
                 document.getElementById('notifBadge').classList.add('hidden');
                 container.innerHTML = `
                     <div class="text-center py-10">
@@ -459,17 +476,23 @@
             }
         }
 
+        // ==========================================
+        // DASHBOARD RENDERING
+        // ==========================================
         function renderDash() {
             document.getElementById('dispName').innerText = studentData.name; 
             document.getElementById('dispRegNo').innerText = "#" + studentData.regNo;
             document.getElementById('dispTime').innerText = formatTime(studentData.shiftStart) + " - " + formatTime(studentData.shiftEnd);
             document.getElementById('dispFather').innerText = studentData.father || "N/A"; 
+            document.getElementById('dispAadhar').innerText = studentData.aadhar || "N/A";
             document.getElementById('dispAddress').innerText = studentData.address || "N/A"; 
             document.getElementById('profileImg').src = studentData.image || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png";
 
             if (studentData.aiEnabled !== false) {
                 document.getElementById('fab-ai').classList.remove('hidden');
-            } else { document.getElementById('fab-ai').classList.add('hidden'); }
+            } else {
+                document.getElementById('fab-ai').classList.add('hidden');
+            }
 
             const today = new Date(); today.setHours(0,0,0,0);
             const due = new Date(studentData.feeDueDate);
@@ -493,14 +516,18 @@
             }
         } 
 
+        // ==========================================
+        // OTHER PORTAL FEATURES
+        // ==========================================
         window.openPaymentHistory = async () => {
             document.getElementById('paymentModal').classList.remove('hidden');
             const container = document.getElementById('paymentListContainer');
-            container.innerHTML = `<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-orange-500"></i><p class="text-xs font-bold uppercase">Loading records...</p></div>`;
+            container.innerHTML = `<div class="text-center py-10 text-slate-400"><i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-blue-500"></i><p class="text-xs font-bold uppercase">Loading records...</p></div>`;
 
             try {
                 const response = await fetch(`${BACKEND_URL}/api/payments/${studentData.regNo}`);
                 const payments = await response.json();
+                
                 payments.sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 if(payments.length === 0) {
@@ -526,7 +553,7 @@
                     }
 
                     listDiv.innerHTML += `
-                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-orange-300 transition">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex justify-between items-center hover:border-blue-300 transition">
                             <div>
                                 <p class="text-xs font-bold text-slate-400 mb-1"><i class="fa-regular fa-calendar text-[10px]"></i> ${formatDateStr(p.date)}</p>
                                 <p class="font-black text-slate-800 text-lg">${amountDisplay}</p>
@@ -544,9 +571,11 @@
         }
         window.closePaymentHistory = () => document.getElementById('paymentModal').classList.add('hidden');
 
+        // Rules Modal
         window.openRules = () => document.getElementById('rulesModal').classList.remove('hidden');
         window.closeRules = () => document.getElementById('rulesModal').classList.add('hidden');
 
+        // QR Scanner
         window.startAttendanceScanner = () => {
             document.getElementById('scannerView').classList.remove('hidden');
             scanner = new Html5Qrcode("reader");
@@ -581,21 +610,14 @@
         function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
         function formatDateStr(dateStr) { if(!dateStr) return "--/--/----"; const d = new Date(dateStr); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
         
-        // 🚀 Modified Background Generator (Indian Flags moving bottom to top randomly)
         const bgContainer = document.getElementById('bg-animation');
-        for(let i=0; i<30; i++){ 
-            const b = document.createElement('div'); 
-            b.className = 'book-icon flex items-center justify-center'; 
-            b.style.left = Math.random() * 100 + 'vw'; 
-            b.style.animationDuration = (4 + Math.random() * 6) + 's'; 
-            b.style.animationDelay = (Math.random() * 5) + 's'; 
-            
-            // Replaced the emoji with an SVG image tag
-            b.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 35px; border-radius: 4px; opacity: 0.8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'; 
-            
-            bgContainer.appendChild(b);
+        for(let i=0; i<20; i++){ 
+            const b = document.createElement('i'); b.className = 'fa-solid fa-book book-icon'; b.style.left = Math.random() * 100 + 'vw'; b.style.animationDuration = (4 + Math.random() * 4) + 's'; b.style.animationDelay = (Math.random() * 3) + 's'; const icons = ['fa-book', 'fa-graduation-cap', 'fa-pen', 'fa-laptop-code']; b.classList.add(icons[Math.floor(Math.random() * icons.length)]); bgContainer.appendChild(b);
         }
 
+        // ==========================================
+        // AI ASSISTANT MODULE
+        // ==========================================
         let aiConversationHistory = [];
         let aiImageBase64 = null;
         let aiImageMimeType = null;
@@ -633,13 +655,13 @@
 
         window.handleAiKeyPress = function(event) { if (event.key === 'Enter') window.sendAiMessage(); }
         function formatAiText(text) {
-            let formatted = text.replace(/\n/g, '<br>'); formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-orange-600 font-bold underline">$1</a>');
-            formatted = formatted.replace(/(https?:\/\/[^\s]+)(?!["'])/g, function(url) { if(url.includes('href=')) return url; return `<a href="${url}" target="_blank" class="text-orange-600 font-bold underline">${url}</a>`; }); return formatted;
+            let formatted = text.replace(/\n/g, '<br>'); formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-blue-600 font-bold underline">$1</a>');
+            formatted = formatted.replace(/(https?:\/\/[^\s]+)(?!["'])/g, function(url) { if(url.includes('href=')) return url; return `<a href="${url}" target="_blank" class="text-blue-600 font-bold underline">${url}</a>`; }); return formatted;
         }
 
         function appendAiMessage(sender, text, imageUrl = null) {
             const history = document.getElementById('ai-chat-history'); const msgDiv = document.createElement('div');
-            msgDiv.className = sender === 'user' ? "bg-orange-500 text-white p-3 rounded-2xl rounded-tr-sm self-end max-w-[85%] shadow-sm leading-relaxed" : "bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] shadow-sm leading-relaxed";
+            msgDiv.className = sender === 'user' ? "bg-blue-600 text-white p-3 rounded-2xl rounded-tr-sm self-end max-w-[85%] shadow-sm leading-relaxed" : "bg-white border border-slate-200 text-slate-700 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] shadow-sm leading-relaxed";
             msgDiv.innerHTML = formatAiText(text);
             if (imageUrl) { const img = document.createElement('img'); img.src = imageUrl; img.className = "mt-2 rounded-lg max-w-full border border-black/10 shadow-sm"; msgDiv.appendChild(img); }
             history.appendChild(msgDiv); history.scrollTop = history.scrollHeight;
